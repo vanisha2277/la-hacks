@@ -1,0 +1,50 @@
+[
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "new operator asked me about starting the reflux pumps. whats the rule",
+    "ts": "1747782000.000188"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "never start either reflux pump unless 20LFC20BB001 level is at least 30%",
+    "ts": "1747782240.000288"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "that for A and B both?",
+    "ts": "1747782360.000388"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "both",
+    "ts": "1747782420.000488"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "ill add it to the startup checklist",
+    "ts": "1747782540.000588"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "good. also im putting handover notes together in Drive before i retire",
+    "ts": "1747782660.000688"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "so much of this is just in your head",
+    "ts": "1747782780.000788"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "thats why im writing it down",
+    "ts": "1747782900.000888"
+  }
+]

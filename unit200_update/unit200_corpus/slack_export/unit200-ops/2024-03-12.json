@@ -1,0 +1,44 @@
+[
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "20LFB20AC001 got cleaned last week",
+    "ts": "1710253800.000191"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "reminder, cleaning interval is about 18 months",
+    "ts": "1710253860.000291"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "feed temp is back to normal, 20LFB20AA001 is closed again",
+    "ts": "1710254040.000391"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "thats why it had been open so much, the last cleaning was a long time ago",
+    "ts": "1710254160.000491"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "good. keep 20LFB20AA001 closed unless you actually need it",
+    "ts": "1710254340.000591"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "will do",
+    "ts": "1710254400.000691"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "ill put the next one on the calendar",
+    "ts": "1710254640.000791"
+  }
+]

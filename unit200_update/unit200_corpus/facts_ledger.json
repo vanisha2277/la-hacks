@@ -1,0 +1,44 @@
+{
+  "_note": "Ground truth for the synthetic Unit 200 corpus. Never ship this file to the retrieval index. Use only for eval.",
+  "facts": [
+    {"id": "F01", "type": "design", "date": "2017-09", "tags": ["20LFC10AT001"], "claim": "Unit 200 splits a C3/C4 mix: propane overhead, butane bottoms. Design feed 120 m3/h, column has 55 trays.", "sources": ["drive:design_basis", "drive:handover_notes"]},
+    {"id": "F02", "type": "decision", "date": "2018-06", "tags": ["20LFB10CF002", "20LFB10AA101"], "claim": "20LFB10CF002 was deliberately detuned at commissioning because upstream feed composition swings caused oscillation in the first week.", "sources": ["slack:unit200-eng", "drive:commissioning_notes"]},
+    {"id": "F03", "type": "incident", "date": "2019-11-04", "tags": ["20LFC20AP001", "20LFC20AA102", "20LFC20BB001"], "claim": "20LFC20AP001 mechanical seal failed from dry running. 20LFC20AA102 failed open during an instrument air pressure dip and drained 20LFC20BB001.", "sources": ["drive:incident_report_2019", "slack:unit200-ops", "meeting:incident_review_2019"]},
+    {"id": "F04", "type": "change", "date": "2019-12", "tags": ["20LFC20CL101", "20LFC20AA011", "20LFC20AA012", "20LFC20CF101", "20LFC20AP001", "20LFC20AP002"], "claim": "MOC-2019-021 (Rev 1) added low-low level trip 20LFC20CL101 on both reflux pumps, check valves 20LFC20AA011 and 20LFC20AA012, and low-flow alarm 20LFC20CF101.", "sources": ["drive:moc_2019_021", "slack:moc-reviews", "drawing:rev1"]},
+    {"id": "F05", "type": "change", "date": "2020-08", "tags": ["20LFC20AA101", "20LFC20CF002"], "claim": "MOC-2020-014 (Rev 2) upsized 20LFC20AA101 trim from Cv 45 to Cv 75 for higher feed rates. Side effect: the valve hunts below about 40% load, so operators run 20LFC20CF002 in manual below 40%.", "sources": ["drive:moc_2020_014", "slack:unit200-ops"]},
+    {"id": "F06", "type": "change", "date": "2021-09", "tags": ["20LFC10AA191", "20LFC10AT001"], "claim": "20LFC10AA191 set pressure was lowered from 17.2 to 16.5 barg after inspection re-evaluated column MAWP. The Drive datasheet still says 17.2.", "sources": ["slack:unit200-eng", "drive:psv_datasheet_stale"], "contradiction": "C01"},
+    {"id": "F07", "type": "change", "date": "2022-03", "tags": ["20LFB20AC001", "20LFB20AA001"], "claim": "MOC-2022-007 (Rev 3) added bypass 20LFB20AA001 around 20LFB20AC001 to hold feed temperature as 20LFB20AC001 fouled. Cleaning interval is 18 months, last cleaned 2024-03.", "sources": ["drive:moc_2022_007", "slack:unit200-ops", "meeting:maintenance_2022"]},
+    {"id": "F08", "type": "change", "date": "2023-05", "tags": ["20LFC30CT001", "20LFC30CT002"], "claim": "MOC-2023-009: 20LFC30CT001 moved from tray 28 to tray 32 because the tray 28 reading was insensitive. 20LFC30CT002 setpoint changed from 78 to 81 C and the loop was retuned (Rev 4).", "sources": ["drive:moc_2023_009", "slack:unit200-eng", "meeting:controls_2023", "drawing:rev4"]},
+    {"id": "F09", "type": "incident", "date": "2024-09", "tags": ["20LFC20BB001", "20LFC20CL002"], "claim": "Near-miss: 20LFC20BB001 overfilled during startup with 20LFC20CL002 left in manual.", "sources": ["drive:near_miss_2024", "slack:unit200-ops", "meeting:near_miss_review_2024"]},
+    {"id": "F10", "type": "change", "date": "2024-10", "tags": ["20LFC20AA102"], "claim": "MOC-2024-031 (Rev 5) changed 20LFC20AA102 fail position from fail-open to fail-closed, accepting overfill risk covered by the high-level alarm.", "sources": ["drive:moc_2024_031", "drawing:rev5"], "contradiction": "C02"},
+    {"id": "F11", "type": "discrepancy", "date": "2025-02", "tags": ["20LFC20AA102"], "claim": "During PM, Priya found the 20LFC20AA102 actuator still configured fail-open and raised WO-88213. Closure was never recorded.", "sources": ["slack:unit200-eng"], "contradiction": "C02"},
+    {"id": "F12", "type": "gotcha", "date": "2022-03", "tags": ["20LFB20AA001", "20LFB20AC001", "20LFD10CT101"], "claim": "Opening the 20LFB20AC001 bypass makes bottoms run hotter to storage. Off-page storage alarm 20LFD10CT101 trips at 55 C, so operators only partially open 20LFB20AA001. Spans PID-100 and PID-300.", "sources": ["slack:unit200-ops", "drive:handover_notes"]},
+    {"id": "F13", "type": "rule_of_thumb", "date": "2025-06", "tags": ["20LFC20AP001", "20LFC20AP002", "20LFC20BB001"], "claim": "Dana's rule: never start a reflux pump unless 20LFC20BB001 level is at least 30%.", "sources": ["drive:handover_notes", "drive:operating_procedure"]},
+    {"id": "F14", "type": "maintenance", "date": "2021-06", "tags": ["20LFC20AP001", "20LFC20AP002"], "claim": "20LFC20AP001 seal was replaced again in June 2021 (WO-71120). Suspected cause was misalignment rather than dry running, so 20LFC20AP002 is the preferred duty pump.", "sources": ["slack:unit200-ops", "meeting:maintenance_2021"]}
+  ],
+  "contradictions": [
+    {"id": "C01", "tags": ["20LFC10AA191"], "summary": "Set pressure is 17.2 barg in the datasheet and drawing but 16.5 barg per Hannah (Slack, 2021). Correct current value: 16.5 barg, but only supported by Slack."},
+    {"id": "C02", "tags": ["20LFC20AA102"], "summary": "Fail position is FC per Rev 5 drawing and MOC-2024-031, but Priya found FO in the field in 2025 and the work order was never closed. True current state is unknown."}
+  ],
+  "gaps": [
+    {"id": "G01", "tags": ["20LFB10AP002"], "summary": "No maintenance history or incidents for 20LFB10AP002."},
+    {"id": "G02", "tags": ["20LFC10AA191"], "summary": "No MOC or approval document for the 20LFC10AA191 re-rating."},
+    {"id": "G03", "tags": ["20LFC20AA102"], "summary": "No explanation anywhere for why the 20LFC20AA102 bypass line is 2 inch."},
+    {"id": "G04", "tags": ["20LFC30AC001"], "summary": "20LFC30AC001 steam trap sizing basis is undocumented."},
+    {"id": "G05", "tags": ["20LFC20AP001", "20LFC30AC001"], "summary": "Pump vendors, heat duties, and most design pressures are never stated."}
+  ],
+  "seed_eval_questions": [
+    {"id": "Q01", "question": "Why did 20LFC20AP001's seal fail in 2019?", "answer_facts": ["F03"], "kind": "answerable"},
+    {"id": "Q02", "question": "What protections were added to the reflux pumps after the 2019 incident?", "answer_facts": ["F04"], "kind": "answerable"},
+    {"id": "Q03", "question": "Why do operators run 20LFC20CF002 in manual at low rates?", "answer_facts": ["F05"], "kind": "answerable"},
+    {"id": "Q04", "question": "What is the set pressure of 20LFC10AA191?", "answer_facts": ["F06"], "kind": "contradiction", "expected": "Must surface both 17.2 and 16.5 barg and say which source says what."},
+    {"id": "Q05", "question": "Is 20LFC20AA102 fail-open or fail-closed?", "answer_facts": ["F10", "F11"], "kind": "contradiction", "expected": "Must say drawing says FC but a 2025 field finding says FO and the work order has no recorded closure."},
+    {"id": "Q06", "question": "Why can't I fully open the 20LFB20AC001 bypass?", "answer_facts": ["F12"], "kind": "cross_diagram"},
+    {"id": "Q07", "question": "Why was 20LFC30CT001 moved and what happened to the setpoint?", "answer_facts": ["F08"], "kind": "answerable"},
+    {"id": "Q08", "question": "Which reflux pump should I run by default and why?", "answer_facts": ["F14", "F13"], "kind": "multi_hop"},
+    {"id": "Q09", "question": "What is the maintenance history of 20LFB10AP002?", "answer_facts": [], "kind": "gap", "gap": "G01", "expected": "Must say no record exists."},
+    {"id": "Q10", "question": "Who approved lowering the 20LFC10AA191 set pressure?", "answer_facts": [], "kind": "gap", "gap": "G02", "expected": "Must say no approval record found."},
+    {"id": "Q11", "question": "Why is the 20LFC20AA102 bypass line 2 inch?", "answer_facts": [], "kind": "gap", "gap": "G03", "expected": "Must say no documented reason."},
+    {"id": "Q12", "question": "What is the heat duty of 20LFC30AC001?", "answer_facts": [], "kind": "unanswerable", "gap": "G05", "expected": "Must say it is not in the records."}
+  ]
+}

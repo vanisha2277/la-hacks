@@ -1,0 +1,56 @@
+[
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "evening shift tripped 20LFD10CT101 on the storage tank, high temp alarm",
+    "ts": "1649208000.000187"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "what happened?",
+    "ts": "1649208120.000287"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "they opened 20LFB20AA001 all the way to get feed temp up",
+    "ts": "1649208240.000387"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "with the bypass open the bottoms run hotter on their way to storage. 20LFD10CT101 trips at 55 C",
+    "ts": "1649208300.000487"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "right. thats the catch with the bypass. never fully open 20LFB20AA001",
+    "ts": "1649208540.000587"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "crack it and watch the storage temperature, not just the feed temp",
+    "ts": "1649208600.000687"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "ill add a note to the operator sheet",
+    "ts": "1649208720.000787"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "thanks. ill tell nights directly too",
+    "ts": "1649208780.000887"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "this one crosses drawings btw. valve is on the feed sheet and the alarm is on the storage sheet, so nobody sees both on one page",
+    "ts": "1649208960.000987"
+  }
+]

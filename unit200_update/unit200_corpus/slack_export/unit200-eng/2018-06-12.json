@@ -1,0 +1,56 @@
+[
+  {
+    "type": "message",
+    "user": "U03PRAMAN",
+    "text": "20LFB10CF002 is hunting again, same as yesterday. flow swings up and down every couple min",
+    "ts": "1528821600.000183"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "its the feed comp. upstream is swinging the C3/C4 ratio and the loop is chasing it",
+    "ts": "1528821720.000283"
+  },
+  {
+    "type": "message",
+    "user": "U03PRAMAN",
+    "text": "i can keep retuning but every time the comp moves it goes off again",
+    "ts": "1528821780.000383"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "dont chase it. detune 20LFB10CF002 on purpose. slow it way down, id rather have a lazy feed than a hunting one while were commissioning",
+    "ts": "1528821900.000483"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "ok heads up for my crew, is the feed gonna feel slow to respond?",
+    "ts": "1528822080.000583"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "yes. intentional. dont fight it and dont crank the gain back up",
+    "ts": "1528822140.000683"
+  },
+  {
+    "type": "message",
+    "user": "U03PRAMAN",
+    "text": "making the change now, ill log it in the commissioning notes",
+    "ts": "1528822440.000783"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "\ud83d\udc4d will tell nights",
+    "ts": "1528822500.000883"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "revisit once upstream settles. not before",
+    "ts": "1528822920.000983"
+  }
+]

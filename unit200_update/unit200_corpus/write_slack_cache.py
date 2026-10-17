@@ -1,0 +1,285 @@
+#!/usr/bin/env python3
+"""Hand-written Slack conversations for the 25 scenes in scenes.json.
+Writes .cache_slack/<scene>.json; then `python3 gen_slack.py --cached` builds slack_export/ from them.
+Each message: (user, minutes_after_start, text) or (user, minutes, text, parent_index)."""
+import json
+import os
+
+D, L, P, M, H = "dokafor", "lferreira", "praman", "mdelaney", "hcho"
+
+S = {
+"S01": [
+ (P, 0, "20LFB10CF002 is hunting again, same as yesterday. flow swings up and down every couple min"),
+ (D, 2, "its the feed comp. upstream is swinging the C3/C4 ratio and the loop is chasing it"),
+ (P, 3, "i can keep retuning but every time the comp moves it goes off again"),
+ (D, 5, "dont chase it. detune 20LFB10CF002 on purpose. slow it way down, id rather have a lazy feed than a hunting one while were commissioning"),
+ (L, 8, "ok heads up for my crew, is the feed gonna feel slow to respond?"),
+ (D, 9, "yes. intentional. dont fight it and dont crank the gain back up"),
+ (P, 14, "making the change now, ill log it in the commissioning notes"),
+ (L, 15, "👍 will tell nights"),
+ (D, 22, "revisit once upstream settles. not before"),
+],
+"S02": [
+ (L, 0, "anyone covering saturday? im out"),
+ (M, 2, "i can take it if i get tuesday off"),
+ (L, 3, "deal"),
+ (M, 6, "also coffee machine in the control room is dead again"),
+ (L, 7, "lol of course it is"),
+ (M, 12, "reminder hard hats in the new unit even for walkthroughs"),
+ (L, 13, "yep passed it to my crew"),
+],
+"S03": [
+ (L, 0, "20LFC20AP001 tripped overnight. nights said it smelled burnt out there"),
+ (M, 6, "just looked. mech seal on 20LFC20AP001 is gone. not leaking a little, GONE"),
+ (L, 8, "also 20LFC20BB001 was basically empty when day shift came in. level bottomed out"),
+ (M, 10, "that tracks. pump ran dry then"),
+ (L, 12, "nights said instrument air dipped around the same time and 20LFC20AA102 went wide open. drained the drum"),
+ (D, 14, "wide open on loss of air, yeah. thats how its set up. coming down now, dont restart 20LFC20AP001"),
+ (D, 15, "run 20LFC20AP002. hold 20LFC20BB001 level up by hand until im there"),
+ (L, 17, "on it. 20LFC20AP002 is running, level coming back"),
+ (M, 25, "pulling 20LFC20AP001 for the shop. tagging it out"),
+ (D, 31, "good. keep the old seal, i want to look at it"),
+],
+"S04": [
+ (D, 0, "ok writing this up. 20LFC20AP001 seal failed from dry running, no question. the seal face shows it"),
+ (P, 3, "air header did dip that night, i pulled the trend. 20LFC20AA102 followed it open"),
+ (H, 5, "im scheduling the incident review. well need an MOC for whatever the corrective actions end up being"),
+ (D, 6, "agreed. problem is simple: drum empties, pump keeps running. nothing stops it"),
+ (H, 8, "so the pumps need protection against low level in 20LFC20BB001"),
+ (D, 9, "yes. a low-low level trip on both reflux pumps. ill draft it"),
+ (P, 12, "hardwired or through the DCS?"),
+ (D, 13, "hardwired. dont want this depending on the DCS"),
+ (H, 14, "ok. send me the draft and ill put it in the MOC package"),
+ (D, 15, "will do. friday"),
+],
+"S05": [
+ (H, 0, "MOC-2019-021 review, corrective actions from the november seal failure. Dana walk us through it"),
+ (D, 2, "three changes. one: 20LFC20CL101, low-low level trip on 20LFC20BB001 that stops both 20LFC20AP001 and 20LFC20AP002. two: check valves 20LFC20AA011 and 20LFC20AA012 on the pump discharges. three: 20LFC20CF101, low-flow alarm on the reflux"),
+ (H, 4, "why the check valves? the incident was level, not backflow"),
+ (D, 5, "with one pump tripped and the other running you can get flow going backwards through the stopped one. cheap to prevent"),
+ (H, 7, "ok. proof test interval for 20LFC20CL101?"),
+ (D, 8, "same as our other trips. ill add it to the test schedule"),
+ (L, 10, "what does the operator see when it trips"),
+ (D, 11, "pumps stop, alarm on the console. 20LFC20CF101 will already be going off since reflux flow drops"),
+ (L, 12, "ok good. ill brief the crews"),
+ (H, 14, "no objections. approved. drawing goes to Rev 1"),
+ (D, 15, "will update today"),
+],
+"S06": [
+ (L, 0, "contractor trucks are parked in the fire lane again"),
+ (M, 3, "ill call the gate"),
+ (L, 5, "forklift near miss reminder went out this morning, please read it"),
+ (M, 8, "read it. the new guy almost backed into the rack tho"),
+ (L, 9, "yikes. ill talk to him"),
+ (M, 14, "cafeteria has the good chili today fyi"),
+],
+"S07": [
+ (D, 0, "MOC-2020-014. were moving to higher feed rates and 20LFC20AA101 is running out of range on the current trim"),
+ (D, 1, "proposal: upsize the trim from Cv 45 to Cv 75"),
+ (H, 4, "any concern on noise or cavitation at the new rates?"),
+ (D, 6, "checked the sizing, fine at the rates were going to"),
+ (P, 8, "ill update the valve datasheet and the loop tuning sheet"),
+ (H, 10, "ok no objections from HSE"),
+ (D, 11, "approved then. drawing goes to Rev 2"),
+],
+"S08": [
+ (L, 0, "20LFC20AA101 is hunting again, were running light today"),
+ (M, 2, "its been doing that since the trim change"),
+ (L, 3, "yep. anything below about 40% load it hunts. so weve been putting 20LFC20CF002 in manual below 40% and nudging by hand"),
+ (D, 8, "known side effect of the bigger trim. valve is too big for low loads, no fine control down there"),
+ (L, 9, "is that gonna get fixed?"),
+ (D, 11, "not worth another change right now. manual below 40% is fine, just keep an eye on it"),
+ (L, 12, "ok. ill put it in the shift notes so new guys know"),
+ (M, 13, "👍"),
+],
+"S09": [
+ (M, 0, "20LFC20AP001 seal replaced again. WO-71120"),
+ (L, 2, "ugh. same cause as last time?"),
+ (M, 4, "dont think so. no signs of dry running this time, face looks fine. i think its misalignment, shaft was off when i checked"),
+ (D, 9, "alignment sounds right. dry running wasnt it this time"),
+ (D, 10, "make 20LFC20AP002 the preferred duty pump and keep 20LFC20AP001 as standby until we get alignment sorted"),
+ (L, 12, "got it. ill update the operator notes"),
+ (M, 14, "ill realign when its back from the shop"),
+ (L, 16, "so 20LFC20AP002 runs, 20LFC20AP001 is backup. yes?"),
+ (D, 17, "yes"),
+],
+"S10": [
+ (H, 0, "fyi after the inspection group re-evaluated the column MAWP, 20LFC10AA191 set pressure got lowered. 17.2 to 16.5 barg"),
+ (P, 3, "is the PSV datasheet in Drive updated?"),
+ (H, 5, "not yet, havent gotten to it"),
+ (D, 7, "remember the drawing still says 17.2 until someone fixes it"),
+ (P, 9, "so datasheet and drawing both say 17.2 right now"),
+ (H, 10, "correct. field is 16.5"),
+ (D, 12, "just dont let anyone work from the old number"),
+ (P, 14, "ok. ill keep it in mind when i do the loop checks"),
+],
+"S11": [
+ (L, 0, "lunch order going in, who wants what"),
+ (M, 2, "turkey club"),
+ (L, 3, "can someone swap my thursday night shift"),
+ (M, 6, "ask the new guys, they need the hours"),
+ (L, 9, "the beeping forklift by dock 2 is driving me nuts"),
+ (M, 10, "its been like that all week, ill put in a ticket"),
+],
+"S12": [
+ (L, 0, "feed temp to the column is sagging again. 20LFB20AC001 is fouling, we keep chasing it"),
+ (M, 3, "its been getting worse since spring"),
+ (D, 6, "yeah thats 20LFB20AC001 fouling. we cant clean it every few weeks"),
+ (D, 7, "im going to propose a bypass around 20LFB20AC001 so you can hold feed temp between cleanings"),
+ (M, 9, "cleanings arent cheap so a bypass buys us time"),
+ (L, 11, "how would we run it"),
+ (D, 13, "partially open, watch the temp. ill write it up"),
+ (L, 14, "ok thanks"),
+],
+"S13": [
+ (D, 0, "MOC-2022-007: add 20LFB20AA001, a bypass valve around 20LFB20AC001, to hold feed temperature as the exchanger fouls"),
+ (H, 3, "what stops someone opening it too far and overheating something downstream?"),
+ (D, 5, "operators open it partially and watch the bottoms temperature. its a manual valve, nothing automatic"),
+ (H, 7, "should that be in the procedure?"),
+ (D, 8, "yes ill add it"),
+ (L, 10, "my guys can handle that. just want it in writing"),
+ (H, 12, "ok. approved. drawing goes to Rev 3"),
+ (D, 13, "thanks"),
+],
+"S14": [
+ (L, 0, "evening shift tripped 20LFD10CT101 on the storage tank, high temp alarm"),
+ (M, 2, "what happened?"),
+ (L, 4, "they opened 20LFB20AA001 all the way to get feed temp up"),
+ (L, 5, "with the bypass open the bottoms run hotter on their way to storage. 20LFD10CT101 trips at 55 C"),
+ (D, 9, "right. thats the catch with the bypass. never fully open 20LFB20AA001"),
+ (D, 10, "crack it and watch the storage temperature, not just the feed temp"),
+ (M, 12, "ill add a note to the operator sheet"),
+ (L, 13, "thanks. ill tell nights directly too"),
+ (D, 16, "this one crosses drawings btw. valve is on the feed sheet and the alarm is on the storage sheet, so nobody sees both on one page"),
+],
+"S15": [
+ (P, 0, "MOC-2023-009: move 20LFC30CT001 from tray 28 to tray 32, and raise the 20LFC30CT002 setpoint from 78 to 81 C. loop retune after"),
+ (H, 3, "why the move"),
+ (P, 5, "the tray 28 reading barely responds. need it where the temp actually changes"),
+ (H, 7, "does 81 C stay inside product spec?"),
+ (D, 9, "yes"),
+ (H, 11, "ok. approved, Rev 4"),
+ (P, 12, "ill update the drawing"),
+],
+"S16": [
+ (P, 0, "20LFC30CT001 is on tray 32 now. response is way better than tray 28"),
+ (D, 3, "good, that was the problem. tray 28 was basically blind"),
+ (P, 5, "retune on 20LFC30CT002 is done, loop is stable at 81 C"),
+ (D, 7, "nice"),
+ (D, 9, "tell Luis's crew the old setpoint was 78 in case they see it in old notes"),
+ (P, 11, "will do"),
+ (P, 13, "also updated the trend screens"),
+ (D, 14, "👍"),
+],
+"S17": [
+ (L, 0, "its already too hot out there and its not even noon"),
+ (M, 2, "break room fridge died again, someones lunch is a biohazard"),
+ (L, 4, "😷"),
+ (M, 7, "safety stand-down is thursday, 30 min, attendance is mandatory"),
+ (L, 9, "ill make sure nights get the recap"),
+ (M, 12, "thx"),
+],
+"S18": [
+ (M, 0, "20LFB20AC001 got cleaned last week"),
+ (M, 1, "reminder, cleaning interval is about 18 months"),
+ (L, 4, "feed temp is back to normal, 20LFB20AA001 is closed again"),
+ (M, 6, "thats why it had been open so much, the last cleaning was a long time ago"),
+ (D, 9, "good. keep 20LFB20AA001 closed unless you actually need it"),
+ (L, 10, "will do"),
+ (M, 14, "ill put the next one on the calendar"),
+],
+"S19": [
+ (L, 0, "heads up, 20LFC20BB001 nearly overfilled during startup tonight"),
+ (L, 1, "20LFC20CL002 was left in manual and nobody caught it till the high level alarm"),
+ (M, 3, "i saw the level climbing on the screen and called it in"),
+ (L, 4, "yeah thats what got us. thank god you did"),
+ (M, 6, "nobody hurt, nothing released right?"),
+ (L, 7, "nothing out of the vessel. but it was close"),
+ (L, 9, "back in auto now"),
+ (M, 11, "therell be a review i assume"),
+ (L, 12, "yes. im writing it up tonight"),
+],
+"S20": [
+ (D, 0, "post near-miss thinking. 20LFC20AA102 fails open right now. thats part of why 20LFC20BB001 can overfill when the controller isnt in the loop"),
+ (D, 1, "i want to change 20LFC20AA102 to fail closed"),
+ (H, 4, "that means loss of air closes the product line"),
+ (D, 5, "yes. we accept the overfill risk, the high level alarm covers it"),
+ (H, 7, "id want that done under an MOC"),
+ (D, 8, "of course"),
+ (P, 11, "ill check the actuator, see what it takes to flip the action"),
+ (H, 13, "ok. get me the details and ill set the review up"),
+ (D, 14, "👍"),
+],
+"S21": [
+ (H, 0, "MOC-2024-031: 20LFC20AA102 fail position, fail-open to fail-closed"),
+ (D, 2, "right. overfill risk is accepted and covered by the high-level alarm"),
+ (H, 4, "documented in the risk assessment"),
+ (L, 6, "how will operators know the valve closed on loss of air"),
+ (D, 8, "console shows the position. youll see it go to closed"),
+ (H, 10, "any other questions?"),
+ (L, 11, "no. fine with it"),
+ (H, 12, "approved. drawing goes to Rev 5"),
+ (D, 13, "will update"),
+],
+"S22": [
+ (P, 0, "doing PM rounds. 20LFC20AA102 actuator is still set up fail-open"),
+ (P, 1, "drawing and the MOC both say fail-closed"),
+ (D, 6, "that should have been done when the MOC closed"),
+ (P, 8, "raising WO-88213 to fix it"),
+ (D, 10, "chase it ok? i dont want that sitting"),
+ (P, 11, "will do"),
+ (D, 13, "let me know when its done"),
+ (P, 14, "👍"),
+],
+"S23": [
+ (M, 0, "PM schedule for next month is up"),
+ (L, 3, "thx. anything on Unit 200?"),
+ (M, 5, "just the usual rounds. 20LFC30AC001 steam trap is not great but its never failed so im leaving it"),
+ (L, 7, "fine by me"),
+ (M, 10, "also who has the key for the east pump house?"),
+ (L, 12, "check with security"),
+ (M, 13, "ok"),
+],
+"S24": [
+ (L, 0, "new operator asked me about starting the reflux pumps. whats the rule"),
+ (D, 4, "never start either reflux pump unless 20LFC20BB001 level is at least 30%"),
+ (L, 6, "that for A and B both?"),
+ (D, 7, "both"),
+ (L, 9, "ill add it to the startup checklist"),
+ (D, 11, "good. also im putting handover notes together in Drive before i retire"),
+ (L, 13, "so much of this is just in your head"),
+ (D, 15, "thats why im writing it down"),
+],
+"S25": [
+ (L, 0, "so today's the day 😢"),
+ (M, 2, "Dana whos gonna tell us our rules of thumb are wrong now"),
+ (D, 4, "youll manage"),
+ (H, 6, "thank you for everything, genuinely"),
+ (P, 8, "handover notes are in Drive but i know theyre not complete"),
+ (D, 10, "theyre not. ask Priya and Luis, they know where things are buried"),
+ (L, 12, "well figure it out 🍻"),
+ (M, 14, "enjoy the free time"),
+ (D, 16, "i will. bye all"),
+ (H, 17, "bye Dana"),
+],
+}
+
+
+def main():
+    here = os.path.dirname(os.path.abspath(__file__))
+    out = os.path.join(here, ".cache_slack")
+    os.makedirs(out, exist_ok=True)
+    total = 0
+    for sid, msgs in S.items():
+        recs = []
+        for m in msgs:
+            user, minutes, text = m[0], m[1], m[2]
+            parent = m[3] if len(m) > 3 else None
+            recs.append({"user": user, "text": text, "minutes": minutes, "thread_parent": parent})
+        json.dump(recs, open(os.path.join(out, sid + ".json"), "w"), indent=1, ensure_ascii=False)
+        total += len(recs)
+    print("wrote %d scenes, %d messages to %s" % (len(S), total, out))
+
+
+if __name__ == "__main__":
+    main()

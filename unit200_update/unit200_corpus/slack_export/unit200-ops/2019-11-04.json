@@ -1,0 +1,62 @@
+[
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "20LFC20AP001 tripped overnight. nights said it smelled burnt out there",
+    "ts": "1572880500.000185"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "just looked. mech seal on 20LFC20AP001 is gone. not leaking a little, GONE",
+    "ts": "1572880860.000285"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "also 20LFC20BB001 was basically empty when day shift came in. level bottomed out",
+    "ts": "1572880980.000385"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "that tracks. pump ran dry then",
+    "ts": "1572881100.000485"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "nights said instrument air dipped around the same time and 20LFC20AA102 went wide open. drained the drum",
+    "ts": "1572881220.000585"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "wide open on loss of air, yeah. thats how its set up. coming down now, dont restart 20LFC20AP001",
+    "ts": "1572881340.000685"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "run 20LFC20AP002. hold 20LFC20BB001 level up by hand until im there",
+    "ts": "1572881400.000785"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "on it. 20LFC20AP002 is running, level coming back",
+    "ts": "1572881520.000885"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "pulling 20LFC20AP001 for the shop. tagging it out",
+    "ts": "1572882000.000985"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "good. keep the old seal, i want to look at it",
+    "ts": "1572882360.001085"
+  }
+]

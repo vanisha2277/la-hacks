@@ -1,0 +1,68 @@
+[
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "MOC-2019-021 review, corrective actions from the november seal failure. Dana walk us through it",
+    "ts": "1575310800.000187"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "three changes. one: 20LFC20CL101, low-low level trip on 20LFC20BB001 that stops both 20LFC20AP001 and 20LFC20AP002. two: check valves 20LFC20AA011 and 20LFC20AA012 on the pump discharges. three: 20LFC20CF101, low-flow alarm on the reflux",
+    "ts": "1575310920.000287"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "why the check valves? the incident was level, not backflow",
+    "ts": "1575311040.000387"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "with one pump tripped and the other running you can get flow going backwards through the stopped one. cheap to prevent",
+    "ts": "1575311100.000487"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "ok. proof test interval for 20LFC20CL101?",
+    "ts": "1575311220.000587"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "same as our other trips. ill add it to the test schedule",
+    "ts": "1575311280.000687"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "what does the operator see when it trips",
+    "ts": "1575311400.000787"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "pumps stop, alarm on the console. 20LFC20CF101 will already be going off since reflux flow drops",
+    "ts": "1575311460.000887"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "ok good. ill brief the crews",
+    "ts": "1575311520.000987"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "no objections. approved. drawing goes to Rev 1",
+    "ts": "1575311640.001087"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "will update today",
+    "ts": "1575311700.001187"
+  }
+]

@@ -1,0 +1,925 @@
+{
+  "revision": "3",
+  "date": "2022-03-09",
+  "author": "Dana Okafor",
+  "moc": "MOC-2022-007",
+  "comment": "Added bypass 20LFB20AA001 around 20LFB20AC001 to maintain feed temperature during fouling.",
+  "nodes": [
+    {
+      "id": "OP-FEED-IN",
+      "type": "offpage",
+      "label": "Feed from battery limit",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "20LFB10BB001",
+      "type": "vessel",
+      "label": "Feed Surge Drum",
+      "diagram": "PID-100",
+      "attrs": {
+        "service": "C3/C4 mixed feed",
+        "isa_type": "VESSEL",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "BB",
+        "first_seq": 1,
+        "legacy_tag": "V-101"
+      }
+    },
+    {
+      "id": "20LFB10AP001",
+      "type": "pump",
+      "label": "Feed Pump A",
+      "diagram": "PID-100",
+      "attrs": {
+        "duty": "running",
+        "isa_type": "PUMP",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "AP",
+        "first_seq": 1,
+        "legacy_tag": "P-101A"
+      }
+    },
+    {
+      "id": "20LFB10AP002",
+      "type": "pump",
+      "label": "Feed Pump B",
+      "diagram": "PID-100",
+      "attrs": {
+        "duty": "standby",
+        "isa_type": "PUMP",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "AP",
+        "first_seq": 2,
+        "legacy_tag": "P-101B"
+      }
+    },
+    {
+      "id": "20LFB10CF001",
+      "type": "transmitter",
+      "label": "Feed Flow Transmitter",
+      "diagram": "PID-100",
+      "attrs": {
+        "isa_type": "FT",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "CF",
+        "first_seq": 1,
+        "legacy_tag": "FT-101"
+      }
+    },
+    {
+      "id": "20LFB10CF002",
+      "type": "controller",
+      "label": "Feed Flow Controller",
+      "diagram": "PID-100",
+      "attrs": {
+        "isa_type": "FIC",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "CF",
+        "first_seq": 2,
+        "legacy_tag": "FIC-101"
+      }
+    },
+    {
+      "id": "20LFB10AA101",
+      "type": "control_valve",
+      "label": "Feed Flow Control Valve",
+      "diagram": "PID-100",
+      "attrs": {
+        "fail_position": "FC",
+        "isa_type": "FCV",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "AA",
+        "first_seq": 101,
+        "legacy_tag": "FV-101"
+      }
+    },
+    {
+      "id": "20LFB10CL001",
+      "type": "transmitter",
+      "label": "20LFB10BB001 Level Transmitter",
+      "diagram": "PID-100",
+      "attrs": {
+        "isa_type": "LT",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "CL",
+        "first_seq": 1,
+        "legacy_tag": "LT-101"
+      }
+    },
+    {
+      "id": "20LFB20AC001",
+      "type": "heat_exchanger",
+      "label": "Feed/Bottoms Exchanger",
+      "diagram": "PID-100",
+      "attrs": {
+        "isa_type": "HX",
+        "system_code": "LFB",
+        "system_seq": 20,
+        "item_code": "AC",
+        "first_seq": 1,
+        "legacy_tag": "E-101"
+      }
+    },
+    {
+      "id": "20LFC10AT001",
+      "type": "column",
+      "label": "C3/C4 Splitter",
+      "diagram": "PID-200",
+      "attrs": {
+        "trays": 55,
+        "isa_type": "COLUMN",
+        "system_code": "LFC",
+        "system_seq": 10,
+        "item_code": "AT",
+        "first_seq": 1,
+        "legacy_tag": "C-101"
+      }
+    },
+    {
+      "id": "20LFC20AC001",
+      "type": "heat_exchanger",
+      "label": "Overhead Condenser",
+      "diagram": "PID-200",
+      "attrs": {
+        "utility": "cooling water",
+        "isa_type": "HX",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "AC",
+        "first_seq": 1,
+        "legacy_tag": "E-102"
+      }
+    },
+    {
+      "id": "20LFC20BB001",
+      "type": "vessel",
+      "label": "Reflux Drum",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "VESSEL",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "BB",
+        "first_seq": 1,
+        "legacy_tag": "V-102"
+      }
+    },
+    {
+      "id": "20LFC20AP001",
+      "type": "pump",
+      "label": "Reflux Pump A",
+      "diagram": "PID-200",
+      "attrs": {
+        "duty": "running",
+        "isa_type": "PUMP",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "AP",
+        "first_seq": 1,
+        "legacy_tag": "P-102A",
+        "check_valve": "20LFC20AA011"
+      }
+    },
+    {
+      "id": "20LFC20AP002",
+      "type": "pump",
+      "label": "Reflux Pump B",
+      "diagram": "PID-200",
+      "attrs": {
+        "duty": "standby",
+        "isa_type": "PUMP",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "AP",
+        "first_seq": 2,
+        "legacy_tag": "P-102B",
+        "check_valve": "20LFC20AA012"
+      }
+    },
+    {
+      "id": "20LFC30AC001",
+      "type": "heat_exchanger",
+      "label": "Reboiler",
+      "diagram": "PID-200",
+      "attrs": {
+        "utility": "steam",
+        "isa_type": "HX",
+        "system_code": "LFC",
+        "system_seq": 30,
+        "item_code": "AC",
+        "first_seq": 1,
+        "legacy_tag": "E-103"
+      }
+    },
+    {
+      "id": "20LFC20CF001",
+      "type": "transmitter",
+      "label": "Reflux Flow Transmitter",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "FT",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "CF",
+        "first_seq": 1,
+        "legacy_tag": "FT-201"
+      }
+    },
+    {
+      "id": "20LFC20CF002",
+      "type": "controller",
+      "label": "Reflux Flow Controller",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "FIC",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "CF",
+        "first_seq": 2,
+        "legacy_tag": "FIC-201"
+      }
+    },
+    {
+      "id": "20LFC20AA101",
+      "type": "control_valve",
+      "label": "Reflux Control Valve",
+      "diagram": "PID-200",
+      "attrs": {
+        "cv": 75,
+        "fail_position": "FC",
+        "isa_type": "FCV",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "AA",
+        "first_seq": 101,
+        "legacy_tag": "FV-201"
+      }
+    },
+    {
+      "id": "20LFC30CT001",
+      "type": "transmitter",
+      "label": "Column Temperature Transmitter",
+      "diagram": "PID-200",
+      "attrs": {
+        "tray": 28,
+        "isa_type": "TT",
+        "system_code": "LFC",
+        "system_seq": 30,
+        "item_code": "CT",
+        "first_seq": 1,
+        "legacy_tag": "TT-203"
+      }
+    },
+    {
+      "id": "20LFC30CT002",
+      "type": "controller",
+      "label": "Column Temperature Controller",
+      "diagram": "PID-200",
+      "attrs": {
+        "setpoint_c": 78,
+        "isa_type": "TIC",
+        "system_code": "LFC",
+        "system_seq": 30,
+        "item_code": "CT",
+        "first_seq": 2,
+        "legacy_tag": "TIC-203"
+      }
+    },
+    {
+      "id": "20LFC30AA101",
+      "type": "control_valve",
+      "label": "Reboiler Steam Valve",
+      "diagram": "PID-200",
+      "attrs": {
+        "fail_position": "FC",
+        "isa_type": "TCV",
+        "system_code": "LFC",
+        "system_seq": 30,
+        "item_code": "AA",
+        "first_seq": 101,
+        "legacy_tag": "TV-203"
+      }
+    },
+    {
+      "id": "20LFC10CP001",
+      "type": "transmitter",
+      "label": "Column Pressure Transmitter",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "PT",
+        "system_code": "LFC",
+        "system_seq": 10,
+        "item_code": "CP",
+        "first_seq": 1,
+        "legacy_tag": "PT-201"
+      }
+    },
+    {
+      "id": "20LFC10CP002",
+      "type": "controller",
+      "label": "Column Pressure Controller",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "PIC",
+        "system_code": "LFC",
+        "system_seq": 10,
+        "item_code": "CP",
+        "first_seq": 2,
+        "legacy_tag": "PIC-201"
+      }
+    },
+    {
+      "id": "20LFC10AA101",
+      "type": "control_valve",
+      "label": "Condenser Cooling Water Valve",
+      "diagram": "PID-200",
+      "attrs": {
+        "fail_position": "FO",
+        "isa_type": "PCV",
+        "system_code": "LFC",
+        "system_seq": 10,
+        "item_code": "AA",
+        "first_seq": 101,
+        "legacy_tag": "PV-201"
+      }
+    },
+    {
+      "id": "20LFC20CL001",
+      "type": "transmitter",
+      "label": "20LFC20BB001 Level Transmitter",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "LT",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "CL",
+        "first_seq": 1,
+        "legacy_tag": "LT-202"
+      }
+    },
+    {
+      "id": "20LFC20CL002",
+      "type": "controller",
+      "label": "20LFC20BB001 Level Controller",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "LIC",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "CL",
+        "first_seq": 2,
+        "legacy_tag": "LIC-202"
+      }
+    },
+    {
+      "id": "20LFC20AA102",
+      "type": "control_valve",
+      "label": "20LFC20BB001 Product Level Valve",
+      "diagram": "PID-200",
+      "attrs": {
+        "fail_position": "FO",
+        "isa_type": "LCV",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "AA",
+        "first_seq": 102,
+        "legacy_tag": "LV-202"
+      }
+    },
+    {
+      "id": "20LFC10AA191",
+      "type": "relief_valve",
+      "label": "Column Relief Valve",
+      "diagram": "PID-200",
+      "attrs": {
+        "set_pressure_barg": 17.2,
+        "isa_type": "PSV",
+        "system_code": "LFC",
+        "system_seq": 10,
+        "item_code": "AA",
+        "first_seq": 191,
+        "legacy_tag": "PSV-201"
+      }
+    },
+    {
+      "id": "OP-C3-PRODUCT",
+      "type": "offpage",
+      "label": "Propane product",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "OP-STORAGE",
+      "type": "offpage",
+      "label": "Butane to storage (PID-300)",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "20LFB10CP101",
+      "type": "switch",
+      "label": "Feed Pump Low Discharge Pressure Switch",
+      "diagram": "PID-100",
+      "attrs": {
+        "isa_type": "PSL",
+        "system_code": "LFB",
+        "system_seq": 10,
+        "item_code": "CP",
+        "first_seq": 101,
+        "legacy_tag": "PSL-101"
+      }
+    },
+    {
+      "id": "20LFC20CL101",
+      "type": "switch",
+      "label": "20LFC20BB001 Low-Low Level Trip",
+      "diagram": "PID-200",
+      "attrs": {
+        "trips": "20LFC20AP001, 20LFC20AP002",
+        "isa_type": "LSLL",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "CL",
+        "first_seq": 101,
+        "legacy_tag": "LSLL-202"
+      }
+    },
+    {
+      "id": "20LFC20AA011",
+      "type": "check_valve",
+      "label": "20LFC20AP001 Discharge Check Valve",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "NRV",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "AA",
+        "first_seq": 11,
+        "legacy_tag": "CV-102A"
+      }
+    },
+    {
+      "id": "20LFC20AA012",
+      "type": "check_valve",
+      "label": "20LFC20AP002 Discharge Check Valve",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "NRV",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "AA",
+        "first_seq": 12,
+        "legacy_tag": "CV-102B"
+      }
+    },
+    {
+      "id": "20LFC20CF101",
+      "type": "alarm",
+      "label": "Reflux Low Flow Alarm",
+      "diagram": "PID-200",
+      "attrs": {
+        "isa_type": "FAL",
+        "system_code": "LFC",
+        "system_seq": 20,
+        "item_code": "CF",
+        "first_seq": 101,
+        "legacy_tag": "FAL-201"
+      }
+    },
+    {
+      "id": "20LFB20AA001",
+      "type": "manual_valve",
+      "label": "20LFB20AC001 Bypass Valve",
+      "diagram": "PID-100",
+      "attrs": {
+        "isa_type": "HV",
+        "system_code": "LFB",
+        "system_seq": 20,
+        "item_code": "AA",
+        "first_seq": 1,
+        "legacy_tag": "BV-101"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "L1001",
+      "from": "OP-FEED-IN",
+      "to": "20LFB10BB001",
+      "kind": "process",
+      "line": "6\"-C3C4-1001",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L1002A",
+      "from": "20LFB10BB001",
+      "to": "20LFB10AP001",
+      "kind": "process",
+      "line": "6\"-C3C4-1002",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L1002B",
+      "from": "20LFB10BB001",
+      "to": "20LFB10AP002",
+      "kind": "process",
+      "line": "6\"-C3C4-1002",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L1003A",
+      "from": "20LFB10AP001",
+      "to": "20LFB10AA101",
+      "kind": "process",
+      "line": "4\"-C3C4-1003",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L1003B",
+      "from": "20LFB10AP002",
+      "to": "20LFB10AA101",
+      "kind": "process",
+      "line": "4\"-C3C4-1003",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L1004",
+      "from": "20LFB10AA101",
+      "to": "20LFB20AC001",
+      "kind": "process",
+      "line": "4\"-C3C4-1004",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L1005",
+      "from": "20LFB20AC001",
+      "to": "20LFC10AT001",
+      "kind": "process",
+      "line": "4\"-C3C4-1005",
+      "diagram": "PID-100",
+      "attrs": {
+        "crosses_to": "PID-200"
+      }
+    },
+    {
+      "id": "L1042",
+      "from": "20LFC10AT001",
+      "to": "20LFB20AC001",
+      "kind": "process",
+      "line": "4\"-C4-1042",
+      "diagram": "PID-200",
+      "attrs": {
+        "crosses_to": "PID-100"
+      }
+    },
+    {
+      "id": "L1043",
+      "from": "20LFB20AC001",
+      "to": "OP-STORAGE",
+      "kind": "process",
+      "line": "4\"-C4-1043",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L2001",
+      "from": "20LFC10AT001",
+      "to": "20LFC20AC001",
+      "kind": "process",
+      "line": "12\"-C3-2001",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2002",
+      "from": "20LFC20AC001",
+      "to": "20LFC20BB001",
+      "kind": "process",
+      "line": "10\"-C3-2002",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2003A",
+      "from": "20LFC20BB001",
+      "to": "20LFC20AP001",
+      "kind": "process",
+      "line": "4\"-C3-2003",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2003B",
+      "from": "20LFC20BB001",
+      "to": "20LFC20AP002",
+      "kind": "process",
+      "line": "4\"-C3-2003",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2005",
+      "from": "20LFC20AA101",
+      "to": "20LFC10AT001",
+      "kind": "process",
+      "line": "3\"-C3-2005",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2006",
+      "from": "20LFC20BB001",
+      "to": "20LFC20AA102",
+      "kind": "process",
+      "line": "2\"-C3-2006",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2007",
+      "from": "20LFC20AA102",
+      "to": "OP-C3-PRODUCT",
+      "kind": "process",
+      "line": "2\"-C3-2007",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2008",
+      "from": "20LFC10AT001",
+      "to": "20LFC30AC001",
+      "kind": "process",
+      "line": "10\"-C4-2008",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2009",
+      "from": "20LFC30AC001",
+      "to": "20LFC10AT001",
+      "kind": "process",
+      "line": "10\"-C4-2009",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2010",
+      "from": "20LFC10AT001",
+      "to": "20LFC10AA191",
+      "kind": "relief",
+      "line": "6\"-REL-2010",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "U2001",
+      "from": "20LFC30AA101",
+      "to": "20LFC30AC001",
+      "kind": "utility",
+      "line": "3\"-STM-2011",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "U2002",
+      "from": "20LFC10AA101",
+      "to": "20LFC20AC001",
+      "kind": "utility",
+      "line": "6\"-CW-2012",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "I1001",
+      "from": "20LFB10BB001",
+      "to": "20LFB10CL001",
+      "kind": "impulse",
+      "line": "impulse 20LFB10BB001 to 20LFB10CL001",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "I2001",
+      "from": "20LFC20BB001",
+      "to": "20LFC20CL001",
+      "kind": "impulse",
+      "line": "impulse 20LFC20BB001 to 20LFC20CL001",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "I2002",
+      "from": "20LFC10AT001",
+      "to": "20LFC30CT001",
+      "kind": "impulse",
+      "line": "impulse 20LFC10AT001 to 20LFC30CT001",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "I2003",
+      "from": "20LFC10AT001",
+      "to": "20LFC10CP001",
+      "kind": "impulse",
+      "line": "impulse 20LFC10AT001 to 20LFC10CP001",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S1001",
+      "from": "20LFB10CF001",
+      "to": "20LFB10CF002",
+      "kind": "signal",
+      "line": "20LFB10CF001 to 20LFB10CF002",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "S1002",
+      "from": "20LFB10CF002",
+      "to": "20LFB10AA101",
+      "kind": "signal",
+      "line": "20LFB10CF002 to 20LFB10AA101",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "S2001",
+      "from": "20LFC20CF001",
+      "to": "20LFC20CF002",
+      "kind": "signal",
+      "line": "20LFC20CF001 to 20LFC20CF002",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2002",
+      "from": "20LFC20CF002",
+      "to": "20LFC20AA101",
+      "kind": "signal",
+      "line": "20LFC20CF002 to 20LFC20AA101",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2003",
+      "from": "20LFC30CT001",
+      "to": "20LFC30CT002",
+      "kind": "signal",
+      "line": "20LFC30CT001 to 20LFC30CT002",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2004",
+      "from": "20LFC30CT002",
+      "to": "20LFC30AA101",
+      "kind": "signal",
+      "line": "20LFC30CT002 to 20LFC30AA101",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2005",
+      "from": "20LFC10CP001",
+      "to": "20LFC10CP002",
+      "kind": "signal",
+      "line": "20LFC10CP001 to 20LFC10CP002",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2006",
+      "from": "20LFC10CP002",
+      "to": "20LFC10AA101",
+      "kind": "signal",
+      "line": "20LFC10CP002 to 20LFC10AA101",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2007",
+      "from": "20LFC20CL001",
+      "to": "20LFC20CL002",
+      "kind": "signal",
+      "line": "20LFC20CL001 to 20LFC20CL002",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2008",
+      "from": "20LFC20CL002",
+      "to": "20LFC20AA102",
+      "kind": "signal",
+      "line": "20LFC20CL002 to 20LFC20AA102",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S1003",
+      "from": "20LFB10CP101",
+      "to": "20LFB10AP002",
+      "kind": "signal",
+      "line": "20LFB10CP101 auto-start 20LFB10AP002",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "S2009",
+      "from": "20LFC20CL101",
+      "to": "20LFC20AP001",
+      "kind": "signal",
+      "line": "20LFC20CL101 trip 20LFC20AP001",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2010",
+      "from": "20LFC20CL101",
+      "to": "20LFC20AP002",
+      "kind": "signal",
+      "line": "20LFC20CL101 trip 20LFC20AP002",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "S2011",
+      "from": "20LFC20CF001",
+      "to": "20LFC20CF101",
+      "kind": "signal",
+      "line": "20LFC20CF001 to 20LFC20CF101",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2004A1",
+      "from": "20LFC20AP001",
+      "to": "20LFC20AA011",
+      "kind": "process",
+      "line": "3\"-C3-2004",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2004A2",
+      "from": "20LFC20AA011",
+      "to": "20LFC20AA101",
+      "kind": "process",
+      "line": "3\"-C3-2004",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2004B1",
+      "from": "20LFC20AP002",
+      "to": "20LFC20AA012",
+      "kind": "process",
+      "line": "3\"-C3-2004",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L2004B2",
+      "from": "20LFC20AA012",
+      "to": "20LFC20AA101",
+      "kind": "process",
+      "line": "3\"-C3-2004",
+      "diagram": "PID-200",
+      "attrs": {}
+    },
+    {
+      "id": "L1004B",
+      "from": "20LFB10AA101",
+      "to": "20LFB20AA001",
+      "kind": "process",
+      "line": "4\"-C3C4-1004B",
+      "diagram": "PID-100",
+      "attrs": {}
+    },
+    {
+      "id": "L1005B",
+      "from": "20LFB20AA001",
+      "to": "20LFC10AT001",
+      "kind": "process",
+      "line": "4\"-C3C4-1005B",
+      "diagram": "PID-100",
+      "attrs": {
+        "crosses_to": "PID-200"
+      }
+    }
+  ]
+}

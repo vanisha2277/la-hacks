@@ -1,0 +1,44 @@
+[
+  {
+    "type": "message",
+    "user": "U03PRAMAN",
+    "text": "MOC-2023-009: move 20LFC30CT001 from tray 28 to tray 32, and raise the 20LFC30CT002 setpoint from 78 to 81 C. loop retune after",
+    "ts": "1682010600.000188"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "why the move",
+    "ts": "1682010780.000288"
+  },
+  {
+    "type": "message",
+    "user": "U03PRAMAN",
+    "text": "the tray 28 reading barely responds. need it where the temp actually changes",
+    "ts": "1682010900.000388"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "does 81 C stay inside product spec?",
+    "ts": "1682011020.000488"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "yes",
+    "ts": "1682011140.000588"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "ok. approved, Rev 4",
+    "ts": "1682011260.000688"
+  },
+  {
+    "type": "message",
+    "user": "U03PRAMAN",
+    "text": "ill update the drawing",
+    "ts": "1682011320.000788"
+  }
+]

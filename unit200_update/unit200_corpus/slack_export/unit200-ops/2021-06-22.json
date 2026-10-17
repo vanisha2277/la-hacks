@@ -1,0 +1,56 @@
+[
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "20LFC20AP001 seal replaced again. WO-71120",
+    "ts": "1624374300.000191"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "ugh. same cause as last time?",
+    "ts": "1624374420.000291"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "dont think so. no signs of dry running this time, face looks fine. i think its misalignment, shaft was off when i checked",
+    "ts": "1624374540.000391"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "alignment sounds right. dry running wasnt it this time",
+    "ts": "1624374840.000491"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "make 20LFC20AP002 the preferred duty pump and keep 20LFC20AP001 as standby until we get alignment sorted",
+    "ts": "1624374900.000591"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "got it. ill update the operator notes",
+    "ts": "1624375020.000691"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "ill realign when its back from the shop",
+    "ts": "1624375140.000791"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "so 20LFC20AP002 runs, 20LFC20AP001 is backup. yes?",
+    "ts": "1624375260.000891"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "yes",
+    "ts": "1624375320.000991"
+  }
+]
