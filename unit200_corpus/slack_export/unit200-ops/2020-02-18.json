@@ -1,0 +1,38 @@
+[
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "contractor trucks are parked in the fire lane again",
+    "ts": "1582060200.000188"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "ill call the gate",
+    "ts": "1582060380.000288"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "forklift near miss reminder went out this morning, please read it",
+    "ts": "1582060500.000388"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "read it. the new guy almost backed into the rack tho",
+    "ts": "1582060680.000488"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "yikes. ill talk to him",
+    "ts": "1582060740.000588"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "cafeteria has the good chili today fyi",
+    "ts": "1582061040.000688"
+  }
+]

@@ -1,0 +1,29 @@
+---
+fileId: 1ecae1690db8f06246c4283282c672ab6
+name: Meeting notes - Dana handover session
+mimeType: application/vnd.google-apps.document
+kind: meeting_notes
+folder: Unit 200 / 10 Meeting Notes
+createdTime: 2025-05-29T16:00:00Z
+modifiedTime: 2025-05-29T22:30:00Z
+slug: handover_session_2025
+owner: Priya Raman <praman@meridian-gas.example>
+---
+
+# Handover session with Dana, 2025-05-29, 13:00
+Attendees: Dana, Priya, Luis (Mark joined late)
+
+Covered
+- operating rules of thumb (V-102 30% before starting reflux pumps, P-102B duty, manual below 40% on FIC-201)
+- BV-101 and the storage temperature catch
+- history of the big changes
+
+Did not get to (ran out of time)
+- relief devices
+- reboiler E-103
+- instrument details
+- where old calcs are stored
+
+Actions
+- Dana: finish written handover notes by 6/12
+- Priya, Luis: ask Dana about the rest before she leaves

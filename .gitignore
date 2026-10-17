@@ -1,0 +1,6 @@
+.env
+credentials.json
+.cache_slack/
+__pycache__/
+.DS_Store
+unit200_corpus/drawing_history/

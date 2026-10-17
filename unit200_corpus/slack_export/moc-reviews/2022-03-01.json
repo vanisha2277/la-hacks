@@ -1,0 +1,50 @@
+[
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "MOC-2022-007: add BV-101, a bypass valve around E-101, to hold feed temperature as the exchanger fouls",
+    "ts": "1646157000.000186"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "what stops someone opening it too far and overheating something downstream?",
+    "ts": "1646157180.000286"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "operators open it partially and watch the bottoms temperature. its a manual valve, nothing automatic",
+    "ts": "1646157300.000386"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "should that be in the procedure?",
+    "ts": "1646157420.000486"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "yes ill add it",
+    "ts": "1646157480.000586"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "my guys can handle that. just want it in writing",
+    "ts": "1646157600.000686"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "ok. approved. drawing goes to Rev 3",
+    "ts": "1646157720.000786"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "thanks",
+    "ts": "1646157780.000886"
+  }
+]

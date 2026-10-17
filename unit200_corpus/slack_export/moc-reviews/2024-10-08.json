@@ -1,0 +1,56 @@
+[
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "MOC-2024-031: LV-202 fail position, fail-open to fail-closed",
+    "ts": "1728404100.000185"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "right. overfill risk is accepted and covered by the high-level alarm",
+    "ts": "1728404220.000285"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "documented in the risk assessment",
+    "ts": "1728404340.000385"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "how will operators know the valve closed on loss of air",
+    "ts": "1728404460.000485"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "console shows the position. youll see it go to closed",
+    "ts": "1728404580.000585"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "any other questions?",
+    "ts": "1728404700.000685"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "no. fine with it",
+    "ts": "1728404760.000785"
+  },
+  {
+    "type": "message",
+    "user": "U05HCHO",
+    "text": "approved. drawing goes to Rev 5",
+    "ts": "1728404820.000885"
+  },
+  {
+    "type": "message",
+    "user": "U01DOKAFOR",
+    "text": "will update",
+    "ts": "1728404880.000985"
+  }
+]

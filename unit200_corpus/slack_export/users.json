@@ -1,0 +1,57 @@
+[
+  {
+    "id": "U01DOKAFOR",
+    "name": "dokafor",
+    "real_name": "Dana Okafor",
+    "profile": {
+      "display_name": "dana",
+      "real_name": "Dana Okafor"
+    },
+    "is_bot": false,
+    "deleted": false
+  },
+  {
+    "id": "U02LFERREIRA",
+    "name": "lferreira",
+    "real_name": "Luis Ferreira",
+    "profile": {
+      "display_name": "luis",
+      "real_name": "Luis Ferreira"
+    },
+    "is_bot": false,
+    "deleted": false
+  },
+  {
+    "id": "U03PRAMAN",
+    "name": "praman",
+    "real_name": "Priya Raman",
+    "profile": {
+      "display_name": "priya",
+      "real_name": "Priya Raman"
+    },
+    "is_bot": false,
+    "deleted": false
+  },
+  {
+    "id": "U04MDELANEY",
+    "name": "mdelaney",
+    "real_name": "Mark Delaney",
+    "profile": {
+      "display_name": "mark",
+      "real_name": "Mark Delaney"
+    },
+    "is_bot": false,
+    "deleted": false
+  },
+  {
+    "id": "U05HCHO",
+    "name": "hcho",
+    "real_name": "Hannah Cho",
+    "profile": {
+      "display_name": "hannah",
+      "real_name": "Hannah Cho"
+    },
+    "is_bot": false,
+    "deleted": false
+  }
+]

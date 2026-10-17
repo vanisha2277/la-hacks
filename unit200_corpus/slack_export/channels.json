@@ -1,0 +1,38 @@
+[
+  {
+    "id": "C01OPS",
+    "name": "unit200-ops",
+    "created": 1500000000,
+    "members": [
+      "U01DOKAFOR",
+      "U02LFERREIRA",
+      "U03PRAMAN",
+      "U04MDELANEY",
+      "U05HCHO"
+    ]
+  },
+  {
+    "id": "C02ENG",
+    "name": "unit200-eng",
+    "created": 1500000000,
+    "members": [
+      "U01DOKAFOR",
+      "U02LFERREIRA",
+      "U03PRAMAN",
+      "U04MDELANEY",
+      "U05HCHO"
+    ]
+  },
+  {
+    "id": "C03MOC",
+    "name": "moc-reviews",
+    "created": 1500000000,
+    "members": [
+      "U01DOKAFOR",
+      "U02LFERREIRA",
+      "U03PRAMAN",
+      "U04MDELANEY",
+      "U05HCHO"
+    ]
+  }
+]

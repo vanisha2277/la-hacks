@@ -1,0 +1,38 @@
+[
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "lunch order going in, who wants what",
+    "ts": "1635967800.000184"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "turkey club",
+    "ts": "1635967920.000284"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "can someone swap my thursday night shift",
+    "ts": "1635967980.000384"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "ask the new guys, they need the hours",
+    "ts": "1635968160.000484"
+  },
+  {
+    "type": "message",
+    "user": "U02LFERREIRA",
+    "text": "the beeping forklift by dock 2 is driving me nuts",
+    "ts": "1635968340.000584"
+  },
+  {
+    "type": "message",
+    "user": "U04MDELANEY",
+    "text": "its been like that all week, ill put in a ticket",
+    "ts": "1635968400.000684"
+  }
+]
