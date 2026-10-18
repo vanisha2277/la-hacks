@@ -27,6 +27,7 @@ function App() {
   const [highlight, setHighlight] = useState<string[]>([]);
   const [draft, setDraft] = useState("");
   const [popover, setPopover] = useState<{ id: string; anchor: DOMRect } | null>(null);
+  const [chatKey, setChatKey] = useState(0); // bump to start a new chat
 
   // URL holds ?sheet=&tag= so demo links are shareable
   const setUrl = useCallback(
@@ -88,6 +89,12 @@ function App() {
         openSource={openSource}
       />
       <Chat
+        key={chatKey}
+        onNewChat={() => {
+          setChatKey((k) => k + 1);
+          setHighlight([]);
+          setDraft("");
+        }}
         sheetId={sheetId}
         tag={tag}
         clearTag={() => setUrl({ tag: null })}

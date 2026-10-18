@@ -105,7 +105,7 @@ export default function Diagram(props: {
             maxScale={10}
             limitToBounds={false}
             doubleClick={{ disabled: true }}
-            wheel={{ step: 0.12 }}
+            wheel={{ step: 0.04 }} // scroll/trackpad zoom speed; raise to zoom faster
             onInit={() => setReady((n) => n + 1)}
             onTransform={(_, s) => setScale(s.scale)}
           >
@@ -187,9 +187,9 @@ export default function Diagram(props: {
 
         {/* zoom controls */}
         <div className="absolute bottom-5 left-5 flex items-center gap-px overflow-hidden rounded-lg border border-line bg-line">
-          <CtlBtn label="Zoom out" onClick={() => tw.current?.zoomOut(0.3)}><path d="M2 6h8" /></CtlBtn>
+          <CtlBtn label="Zoom out" onClick={() => tw.current?.zoomOut(0.2)}><path d="M2 6h8" /></CtlBtn>
           <span className="flex h-8 items-center bg-panel px-2.5 font-mono text-[11px] text-text-2">{Math.round(scale * 100)}%</span>
-          <CtlBtn label="Zoom in" onClick={() => tw.current?.zoomIn(0.3)}><path d="M6 2v8M2 6h8" /></CtlBtn>
+          <CtlBtn label="Zoom in" onClick={() => tw.current?.zoomIn(0.2)}><path d="M6 2v8M2 6h8" /></CtlBtn>
           <CtlBtn label="Fit" onClick={() => tw.current?.resetTransform()}><path d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8" strokeLinecap="butt" strokeWidth={1.25} /></CtlBtn>
         </div>
 

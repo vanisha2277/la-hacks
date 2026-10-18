@@ -20,9 +20,10 @@ type Props = {
   onAnswer: (r: AskResult) => void;
   openSource: OpenSource;
   onTag: (t: string) => void;
+  onNewChat: () => void;
 };
 
-export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer, openSource }: Props) {
+export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer, openSource, onNewChat }: Props) {
   const [mode, setMode] = useState<"junior" | "senior">("junior");
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [job, setJob] = useState<Job | null>(null);
@@ -37,7 +38,16 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
   useEffect(() => {
     if (draft) input.current?.focus();
   }, [draft]);
-  useEffect(() => () => jobRef.current?.es?.close(), []);
+  useEffect(
+    () => () => {
+      // unmount (new chat): stop any running job server-side too
+      const j = jobRef.current;
+      if (!j) return;
+      j.es?.close();
+      fetch(`${API}/ask/${j.id}`, { method: "DELETE" }).catch(() => {});
+    },
+    [],
+  );
 
   const finish = (m: Msg) => {
     jobRef.current?.es?.close();
@@ -94,13 +104,23 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
           <span className="shrink-0 font-display text-[15px] font-semibold tracking-[-0.01em]">Ask the plant</span>
           {title && <span className="truncate text-xs text-muted">{title}</span>}
         </div>
-        <div className="flex shrink-0 items-center rounded-md border border-line bg-bg p-0.5" role="radiogroup" aria-label="Mode">
-          {(["junior", "senior"] as const).map((m) => (
-            <button key={m} role="radio" aria-checked={mode === m} onClick={() => setMode(m)}
-              className={`flex h-6 items-center rounded-sm px-2.5 text-xs capitalize ${mode === m ? "bg-navy-surface font-medium text-text" : "text-muted hover:text-text-2"}`}>
-              {m}
-            </button>
-          ))}
+        <div className="flex shrink-0 items-center gap-2">
+          <button
+            onClick={onNewChat}
+            disabled={msgs.length === 0 && !job}
+            className="flex h-7 items-center gap-1.5 rounded-md border border-line-strong px-2.5 text-xs text-text-2 hover:bg-raised disabled:cursor-default disabled:opacity-40 disabled:hover:bg-transparent"
+          >
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden><path d="M5 1v8M1 5h8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
+            New chat
+          </button>
+          <div className="flex shrink-0 items-center rounded-md border border-line bg-bg p-0.5" role="radiogroup" aria-label="Mode">
+            {(["junior", "senior"] as const).map((m) => (
+              <button key={m} role="radio" aria-checked={mode === m} onClick={() => setMode(m)}
+                className={`flex h-6 items-center rounded-sm px-2.5 text-xs capitalize ${mode === m ? "bg-navy-surface font-medium text-text" : "text-muted hover:text-text-2"}`}>
+                {m}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
