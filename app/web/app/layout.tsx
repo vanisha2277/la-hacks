@@ -9,7 +9,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"],
 
 export const metadata: Metadata = {
   title: "Handoff",
-  description: "Ask the plant: P&ID answers cited to drawings, records and team history.",
+  description: "Ask Handoff: P&ID answers cited to drawings, records and team history.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

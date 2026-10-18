@@ -101,7 +101,7 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
     <section className="flex w-[var(--chat-w,40%)] min-w-0 flex-none flex-col border-l border-line bg-panel max-[1100px]:h-[90dvh] max-[1100px]:w-auto max-[1100px]:flex-none max-[1100px]:border-l-0 max-[1100px]:border-t">
       <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-line px-6">
         <div className="flex min-w-0 items-center gap-2.5">
-          <span className="shrink-0 font-display text-[15px] font-semibold tracking-[-0.01em]">Ask the plant</span>
+          <span className="shrink-0 font-display text-[15px] font-semibold tracking-[-0.01em]">Ask Handoff</span>
           {title && <span className="truncate text-xs text-muted">{title}</span>}
         </div>
         <div className="flex shrink-0 items-center gap-2">
@@ -127,7 +127,7 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
       <div ref={scroller} className="flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-6 py-7">
         {msgs.length === 0 && !job && (
           <p className="text-[13px] leading-5 text-faint">
-            Ask about a tag, a line, or a change. Every answer is cited to the drawings, registers, Slack, Drive and meetings. The plant data is synthetic.
+            Ask about a tag, a line, or a change. Every answer is cited to the drawings, registers, Slack, Drive and meetings. All data is synthetic.
           </p>
         )}
         {msgs.map((m, i) =>
