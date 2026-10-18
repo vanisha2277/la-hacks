@@ -71,11 +71,9 @@ The rule underneath: **the model is the go-between, never the source.** Anything
 
 Three agents, each with code checking its work:
 
-| Agent | When | What it does | What code checks |
-|---|---|---|---|
-| **Linker** | build time | Reads every conversation, document and meeting and decides which components it's about | the quoted evidence exists word for word, the tag is real, the anchor message actually names it |
-| **Conversation agent** | every question | Plans, calls tools, writes the answer as the senior engineer | every citation came from a tool result in *this* answer |
-| **Docs writer** | build time | Writes a beginner page per component from a fact pack that code assembles | every citation is in the fact pack |
+- **Linker** (build time) reads every conversation, document and meeting and decides which components it's about. *Code checks* that the quoted evidence exists word for word, the tag is real, and the anchor message actually names it.
+- **Conversation agent** (every question) plans, calls tools and writes the answer as the senior engineer. *Code checks* that every citation came from a tool result in that answer.
+- **Docs writer** (build time) writes a beginner page per component from a fact pack that code assembles. *Code checks* that every citation is in the fact pack.
 
 **How a question gets answered**
 - The agent works in a **tool loop of up to 12 rounds**, and can call several tools per round. It follows a procedure: resolve informal names first, check gaps and senior notes for anything it discusses, compare records for any value, and highlight what it's talking about.
