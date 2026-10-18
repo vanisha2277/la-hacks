@@ -67,17 +67,24 @@ Generic AI tools can search Slack or summarize a PDF. None of them **connect a m
 
 The rule underneath: **the model is the go-between, never the source.** Anything code can check, code checks.
 
-### Inside the agent system
+### Agents + tools
 
-Three agents, each with code checking its work:
+**Agents.** Three of them, each with code checking its work:
 
 - **Linker** (build time) reads every conversation, document and meeting and decides which components it's about. *Code checks* that the quoted evidence exists word for word, the tag is real, and the anchor message actually names it.
 - **Conversation agent** (every question) plans, calls tools and writes the answer as the senior engineer. *Code checks* that every citation came from a tool result in that answer.
 - **Docs writer** (build time) writes a beginner page per component from a fact pack that code assembles. *Code checks* that every citation is in the fact pack.
 
+**Tools.** The conversation agent can only reach the knowledge base through these, and each returns `data`, `citations` and an `empty` flag:
+- **Find:** `find_component` turns "the feed drum" or `PSV-201` into the right tag; `get_component` returns its type, sheet and attributes.
+- **Trace the drawing:** `get_loop` (transmitter → controller → final element, and any missing role), `get_neighbors` (what it connects to), `get_protection` (relief devices, alarms, trips), `get_sheet` (everything on a sheet plus off-page connectors).
+- **Read the history:** `search_sources`, `get_source` (the full original thread or document), `get_history` (revisions, MOCs and decisions as one timeline), `get_notes` (senior notes).
+- **Check the records:** `compare_records` (drawing vs valve list vs register vs what people said), `get_gaps` (known gaps and conflicts with severity).
+- **Drive the UI:** `highlight` lights components up on the drawing.
+- **Write (senior mode only):** `add_note`, `record_correction`, `flag_issue`.
+
 **How a question gets answered**
 - The agent works in a **tool loop of up to 12 rounds**, and can call several tools per round. It follows a procedure: resolve informal names first, check gaps and senior notes for anything it discusses, compare records for any value, and highlight what it's talking about.
-- **Tools are the only way into the knowledge base.** Every tool returns the same shape (`data`, `citations`, `empty`), and `empty: true` obliges the agent to say "not recorded".
 - **Every step streams live** to the UI as it happens ("Tracing the control loop", "Checking known gaps"), and the user can stop it at any time.
 - **Failures don't crash the answer.** A bad argument or a tool error goes back to the model as an error result it can recover from; if the round budget runs out, it answers with what it has.
 - **Citation gate:** after the answer is written, code checks every cited ID against what tools actually returned. If any are unknown, the agent gets one rewrite with the valid list, and anything still unverified is flagged in the UI.
