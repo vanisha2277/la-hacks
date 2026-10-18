@@ -1,0 +1,275 @@
+{
+  "count": 14,
+  "objects": [
+    {
+      "id": "01-equipment-20LFB10BB001-79x162",
+      "page": 1,
+      "category": "equipment",
+      "tag": "20LFB10BB001",
+      "type": "equipment",
+      "attributes": {},
+      "bbox": [
+        79.67999999999999,
+        162.23999999999998,
+        93.11999999999999,
+        164.64
+      ],
+      "source": "OCR",
+      "confidence": 0.999,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-equipment-20LFB10AP001-134x150",
+      "page": 1,
+      "category": "equipment",
+      "tag": "20LFB10AP001",
+      "type": "equipment",
+      "attributes": {},
+      "bbox": [
+        134.39999999999998,
+        150.0,
+        147.84,
+        152.39999999999998
+      ],
+      "source": "OCR",
+      "confidence": 0.999,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-instrument-20LFB10CP101-176x215",
+      "page": 1,
+      "category": "instrument",
+      "tag": "20LFB10CP101",
+      "type": "instrument",
+      "attributes": {},
+      "bbox": [
+        176.64,
+        215.04,
+        186.95999999999998,
+        217.44
+      ],
+      "source": "OCR",
+      "confidence": 0.998,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-equipment-20LFC10AT001-311x206",
+      "page": 1,
+      "category": "equipment",
+      "tag": "20LFC10AT001",
+      "type": "equipment",
+      "attributes": {},
+      "bbox": [
+        311.03999999999996,
+        206.16,
+        322.56,
+        208.55999999999997
+      ],
+      "source": "OCR",
+      "confidence": 0.998,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-equipment-20LFC10AT001-311x161",
+      "page": 1,
+      "category": "equipment",
+      "tag": "20LFC10AT001",
+      "type": "equipment",
+      "attributes": {},
+      "bbox": [
+        311.28,
+        161.04,
+        322.32,
+        162.72
+      ],
+      "source": "OCR",
+      "confidence": 0.995,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-valve-20LFB10AA101-210x176",
+      "page": 1,
+      "category": "valve",
+      "tag": "20LFB10AA101",
+      "type": "valve",
+      "attributes": {
+        "size": "DN100"
+      },
+      "bbox": [
+        210.48,
+        176.16,
+        220.79999999999998,
+        178.55999999999997
+      ],
+      "source": "OCR",
+      "confidence": 0.995,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-equipment-20LFB10AP001-341x108",
+      "page": 1,
+      "category": "equipment",
+      "tag": "20LFB10AP001",
+      "type": "equipment",
+      "attributes": {},
+      "bbox": [
+        341.03999999999996,
+        108.96,
+        353.28,
+        111.35999999999999
+      ],
+      "source": "OCR",
+      "confidence": 0.994,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-valve-20LFB10AA101-341x104",
+      "page": 1,
+      "category": "valve",
+      "tag": "20LFB10AA101",
+      "type": "valve",
+      "attributes": {},
+      "bbox": [
+        341.03999999999996,
+        104.88,
+        353.52,
+        107.27999999999999
+      ],
+      "source": "OCR",
+      "confidence": 0.993,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-instrument-20LFB10CL001-81x109",
+      "page": 1,
+      "category": "instrument",
+      "tag": "20LFB10CL001",
+      "type": "instrument",
+      "attributes": {},
+      "bbox": [
+        81.11999999999999,
+        109.67999999999999,
+        91.44,
+        112.08
+      ],
+      "source": "OCR",
+      "confidence": 0.992,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-instrument-20LFB10CF002-195x118",
+      "page": 1,
+      "category": "instrument",
+      "tag": "20LFB10CF002",
+      "type": "instrument",
+      "attributes": {},
+      "bbox": [
+        195.11999999999998,
+        118.8,
+        205.44,
+        121.19999999999999
+      ],
+      "source": "OCR",
+      "confidence": 0.984,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-equipment-20LFB10AP002-341x113",
+      "page": 1,
+      "category": "equipment",
+      "tag": "20LFB10AP002",
+      "type": "equipment",
+      "attributes": {},
+      "bbox": [
+        341.03999999999996,
+        113.03999999999999,
+        353.52,
+        115.44
+      ],
+      "source": "OCR",
+      "confidence": 0.977,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-instrument-20LFB10CF001-163x118",
+      "page": 1,
+      "category": "instrument",
+      "tag": "20LFB10CF001",
+      "type": "instrument",
+      "attributes": {},
+      "bbox": [
+        163.2,
+        118.8,
+        173.28,
+        121.19999999999999
+      ],
+      "source": "OCR",
+      "confidence": 0.959,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-valve-20LFE20AA001-288x221",
+      "page": 1,
+      "category": "valve",
+      "tag": "20LFE20AA001",
+      "type": "valve",
+      "attributes": {
+        "size": "DN100"
+      },
+      "bbox": [
+        288.0,
+        221.51999999999998,
+        298.32,
+        223.92
+      ],
+      "source": "OCR",
+      "confidence": 0.899,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    },
+    {
+      "id": "01-equipment-20LFB1AP002-134x195",
+      "page": 1,
+      "category": "equipment",
+      "tag": "20LFB1AP002",
+      "type": "equipment",
+      "attributes": {},
+      "bbox": [
+        134.16,
+        195.11999999999998,
+        147.84,
+        198.0
+      ],
+      "source": "OCR",
+      "confidence": 0.993,
+      "provenance": "ocr",
+      "evidence": "ocr",
+      "hitl": "auto"
+    }
+  ]
+}

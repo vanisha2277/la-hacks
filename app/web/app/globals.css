@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #000000;
+  --color-panel: #0a0a0b;
+  --color-raised: #161618;
+  --color-line: #1c1c1f;
+  --color-line-strong: #26262a;
+  --color-text: #f2f2f2;
+  --color-text-2: #d8d8dc;
+  --color-body2: #b8b8be;
+  --color-muted: #8a8a90;
+  --color-faint: #55555c;
+  --color-navy: #2f4f8f;
+  --color-navy-surface: #0e1a33;
+  --color-navy-border: #1e3360;
+  --color-navy-text: #9db4e0;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-inter-tight), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--color-navy); }
+* { scrollbar-width: thin; scrollbar-color: var(--color-line-strong) transparent; }
+
+/* corpus drawing is black on white: flip it for the dark canvas */
+.drawing-dark { filter: invert(1) hue-rotate(180deg); }
+
+.overlay-box { fill: transparent; stroke: transparent; cursor: pointer; }
+.overlay-box:hover { stroke: var(--color-text-2); stroke-width: 0.6; }
+
+/* agent answer markdown */
+.answer { font-size: 15px; line-height: 24px; color: var(--color-text); }
+.answer > * + * { margin-top: 12px; }
+.answer strong { font-weight: 600; }
+.answer ul, .answer ol { padding-left: 18px; }
+.answer ul { list-style: disc; }
+.answer ol { list-style: decimal; }
+.answer li + li { margin-top: 4px; }
+.answer li::marker { color: var(--color-faint); }
+.answer code { font-family: var(--font-mono); font-size: 13px; }
+.answer h1, .answer h2, .answer h3 { font-family: var(--font-display); font-weight: 600; font-size: 16px; }
+.answer table { font-size: 13px; border-collapse: collapse; }
+.answer td, .answer th { border: 1px solid var(--color-line); padding: 4px 8px; text-align: left; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 0.9s linear infinite; }
