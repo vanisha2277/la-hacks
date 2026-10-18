@@ -10,7 +10,7 @@
   --color-text-2: #d8d8dc;
   --color-body2: #b8b8be;
   --color-muted: #8a8a90;
-  --color-faint: #55555c;
+  --color-faint: #7a7a80; /* dimmest text that still passes WCAG AA (4.5:1) on bg and panel */
   --color-navy: #2f4f8f;
   --color-navy-surface: #0e1a33;
   --color-navy-border: #1e3360;
@@ -30,6 +30,13 @@ body {
 }
 ::selection { background: var(--color-navy); }
 * { scrollbar-width: thin; scrollbar-color: var(--color-line-strong) transparent; }
+
+/* keyboard users always see where they are; mouse clicks stay clean */
+:focus-visible { outline: 2px solid var(--color-navy-text); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
 
 /* corpus drawing is black on white: flip it for the dark canvas */
 .drawing-dark { filter: invert(1) hue-rotate(180deg); }

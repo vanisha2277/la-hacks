@@ -23,6 +23,9 @@ type Props = {
   onNewChat: () => void;
 };
 
+// the three demo beats: a plain answer, a records conflict, a cross-sheet answer
+const STARTERS = ["What does FIC-201 do?", "What's the set pressure on PSV-201?", "Why can't I fully open the E-101 bypass?"];
+
 export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer, openSource, onNewChat }: Props) {
   const [mode, setMode] = useState<"junior" | "senior">("junior");
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -55,8 +58,8 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
     setMsgs((x) => [...x, m]);
   };
 
-  async function send() {
-    const q = draft.trim();
+  async function send(text = draft) {
+    const q = text.trim();
     if (!q || job) return;
     // history: plain role/content pairs, last ~6 messages (BACKEND_INTEGRATION §3)
     const history = msgs
@@ -126,9 +129,21 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
 
       <div ref={scroller} className="flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-6 py-7">
         {msgs.length === 0 && !job && (
-          <p className="text-[13px] leading-5 text-faint">
-            Ask about a tag, a line, or a change. Every answer is cited to the drawings, registers, Slack, Drive and meetings. All data is synthetic.
-          </p>
+          <div className="flex flex-col gap-4">
+            <p className="text-[13px] leading-5 text-faint">
+              Ask about a tag, a line, or a change. Every answer is cited to the drawings, registers, Slack, Drive and meetings. All data is synthetic.
+            </p>
+            <div className="flex flex-col gap-2">
+              <Caps className="text-muted">Try asking</Caps>
+              {STARTERS.map((q) => (
+                <button key={q} onClick={() => send(q)}
+                  className="group flex items-center justify-between gap-3 rounded-md border border-line px-3.5 py-2.5 text-left text-[13px] text-text-2 transition-colors hover:border-line-strong hover:bg-raised">
+                  {q}
+                  <span className="text-faint transition-colors group-hover:text-text" aria-hidden>→</span>
+                </button>
+              ))}
+            </div>
+          </div>
         )}
         {msgs.map((m, i) =>
           m.role === "user" ? (
@@ -175,7 +190,7 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
               <span className="size-2.5 rounded-[2px] bg-bg" />
             </button>
           ) : (
-            <button onClick={send} disabled={!draft.trim()} aria-label="Send" className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-text hover:bg-text-2 disabled:opacity-40">
+            <button onClick={() => send()} disabled={!draft.trim()} aria-label="Send" className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-text hover:bg-text-2 disabled:opacity-40">
               <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 12V2M2.5 6.5L7 2l4.5 4.5" fill="none" stroke="#000" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </button>
           )}
