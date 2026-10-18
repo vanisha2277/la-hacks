@@ -67,6 +67,31 @@ Generic AI tools can search Slack or summarize a PDF. None of them **connect a m
 
 The rule underneath: **the model is the go-between, never the source.** Anything code can check, code checks.
 
+### Inside the agent system
+
+Three agents, each with code checking its work:
+
+| Agent | When | What it does | What code checks |
+|---|---|---|---|
+| **Linker** | build time | Reads every conversation, document and meeting and decides which components it's about | the quoted evidence exists word for word, the tag is real, the anchor message actually names it |
+| **Conversation agent** | every question | Plans, calls tools, writes the answer as the senior engineer | every citation came from a tool result in *this* answer |
+| **Docs writer** | build time | Writes a beginner page per component from a fact pack that code assembles | every citation is in the fact pack |
+
+**How a question gets answered**
+- The agent works in a **tool loop of up to 12 rounds**, and can call several tools per round. It follows a procedure: resolve informal names first, check gaps and senior notes for anything it discusses, compare records for any value, and highlight what it's talking about.
+- **Tools are the only way into the knowledge base.** Every tool returns the same shape (`data`, `citations`, `empty`), and `empty: true` obliges the agent to say "not recorded".
+- **Every step streams live** to the UI as it happens ("Tracing the control loop", "Checking known gaps"), and the user can stop it at any time.
+- **Failures don't crash the answer.** A bad argument or a tool error goes back to the model as an error result it can recover from; if the round budget runs out, it answers with what it has.
+- **Citation gate:** after the answer is written, code checks every cited ID against what tools actually returned. If any are unknown, the agent gets one rewrite with the valid list, and anything still unverified is flagged in the UI.
+
+**Permissions live in code, not the prompt.** In junior mode, the write tools (`add_note`, `record_correction`, `flag_issue`) aren't even offered to the model, and the dispatcher refuses them if called. Senior writes are validated and stored separately, so rebuilding the knowledge base never erases what an engineer recorded.
+
+**One brain, two front doors.** The web app and ASI:One call the same `ask()`. On Agentverse the agent runs hosted, keeps per-user history between messages, and answered end to end in 34 seconds with nothing else from our app running.
+
+**Cheap to rebuild.** The linker runs 4 workers in parallel, one model call per conversation, and caches every call by content hash, so rebuilding after a code change makes zero model calls unless the source text changed.
+
+**Tested like software.** A 20-question eval is scored by code: an answer fails if any citation fails the check, if it misses the expected sources, or if it doesn't say "not recorded" when it should. One case plants a Slack message containing instructions, and the agent has to treat it as data, not commands.
+
 **Stack:** Python and FastAPI on Railway, Next.js on Vercel, ASI:One's `asi1` model, uAgents on Agentverse, ezdxf for CAD, and **Paper** for design.
 
 ### Designed in Paper
