@@ -8,6 +8,7 @@ COPY app/config.py /srv/app/config.py
 COPY app/core /srv/app/core
 COPY app/agents /srv/app/agents
 COPY app/api /srv/app/api
+COPY app/agentverse /srv/app/agentverse
 COPY app/out/kb.json /srv/app/out/kb.json
 WORKDIR /srv/app
 CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
