@@ -47,6 +47,7 @@ def append_state(key, item):
     item = {"id": f"{prefix}-{len(state[key]) + 1:03d}",
             "date": date.today().isoformat()} | item
     state[key].append(item)
+    STATE_PATH.parent.mkdir(exist_ok=True)
     STATE_PATH.write_text(json.dumps(state, indent=1))
     return item
 
