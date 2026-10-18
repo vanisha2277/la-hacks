@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NewUnit from "@/components/NewUnit";
 import { Logo } from "@/components/ui";
 
 type Unit = {
@@ -52,21 +53,6 @@ const UNITS: Unit[] = [
       </>
     ),
   },
-  {
-    id: "300",
-    name: "Unit 300 · Amine Treating",
-    note: "Drawing only, no history yet",
-    sheets: ["PID-300"],
-    stats: ["— tags", "1 revision", "0 sources"],
-    status: "Needs sources",
-    drawing: (
-      <>
-        <rect x="100" y="24" width="30" height="116" rx="15" />
-        <rect x="210" y="24" width="30" height="116" rx="15" />
-        <path d="M130 44h80M130 120h80M40 110h60M240 54h60" />
-      </>
-    ),
-  },
 ];
 
 const LIVE = new Set(["200"]);
@@ -85,15 +71,11 @@ export default function Home() {
         <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-navy-text">Meridian Gas Processing · Harbor Terminal</p>
         <h1 className="mt-3 font-display text-[44px] font-semibold leading-[50px] tracking-[-0.02em] max-sm:text-[32px] max-sm:leading-10">Handoff Home</h1>
 
-        <div className="mt-11 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5">
+        <div className="mt-11 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {UNITS.map((u) => (
             <UnitCard key={u.id} u={u} live={LIVE.has(u.id)} />
           ))}
-          <div className="flex min-h-[360px] flex-col items-center justify-center gap-2.5 rounded-[10px] border border-dashed border-line-strong text-center">
-            <span className="flex size-10 items-center justify-center rounded-full border border-line-strong text-xl text-text-2">+</span>
-            <span className="text-sm font-medium text-text-2">Add a unit</span>
-            <span className="text-xs text-muted">Drop drawings, connect Slack and Drive</span>
-          </div>
+          <NewUnit />
         </div>
       </main>
     </div>
