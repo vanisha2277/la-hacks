@@ -1,7 +1,7 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
-import { Caps, Logo } from "@/components/ui";
+import { NewUnitHeader } from "@/components/NewUnit";
+import { Caps } from "@/components/ui";
 
 // ponytail: mock output, no model runs. Swap DETECTIONS for the real detector's JSON when there is one.
 type Det = { id: string; tag?: string; kind: string; label: string; conf: number; box: [number, number, number, number]; at: [number, number] };
@@ -26,25 +26,7 @@ export default function CvReview() {
 
   return (
     <div className="flex h-dvh flex-col max-[1100px]:h-auto">
-      <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-line px-6">
-        <div className="flex items-center gap-2.5">
-          <Link href="/" className="flex items-center gap-2.5">
-            <Logo />
-            <span className="font-display text-[15px] font-semibold tracking-[-0.01em]">Handoff</span>
-          </Link>
-          <span className="text-[13px] text-faint">/</span>
-          <span className="text-[13px] text-muted">New unit</span>
-        </div>
-        <ol className="flex gap-5 font-mono text-[11px] text-faint max-md:hidden">
-          <li>1 Source</li>
-          <li className="border-b border-navy pb-0.5 text-text">2 Review detections</li>
-          <li>3 Connect history</li>
-        </ol>
-        <div className="flex gap-2">
-          <Link href="/" className="flex h-8 items-center rounded-md border border-line-strong px-3.5 text-[13px] text-text-2 hover:bg-raised">Back</Link>
-          <Link href="/" className="flex h-8 items-center rounded-md bg-text px-3.5 text-[13px] font-medium text-bg">Accept and continue</Link>
-        </div>
-      </header>
+      <NewUnitHeader step={2} back="/" next="/new/connect" nextLabel="Accept and continue" />
 
       <div className="flex min-h-0 flex-1 max-[1100px]:flex-col">
         <section className="relative min-w-0 flex-1 overflow-hidden border-r border-line bg-[radial-gradient(var(--color-line)_1px,transparent_1px)] bg-[length:16px_16px] max-[1100px]:h-[70dvh] max-[1100px]:flex-none">

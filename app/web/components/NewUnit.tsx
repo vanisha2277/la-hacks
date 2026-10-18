@@ -1,7 +1,8 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Caps } from "./ui";
+import { Caps, Logo } from "./ui";
 
 type Kind = "cv" | "digital";
 
@@ -131,3 +132,30 @@ const DigitalArt = () => (
     <path d="M182 60h46M182 75h46M182 90h30" stroke="#55555c" strokeWidth="1.2" />
   </svg>
 );
+
+const STEPS = ["Source", "Review detections", "Connect history"];
+
+/** Top bar for the new-unit steps (2 and 3; step 1 is the modal). */
+export function NewUnitHeader({ step, back, next, nextLabel }: { step: number; back: string; next: string; nextLabel: string }) {
+  return (
+    <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-line px-6">
+      <div className="flex items-center gap-2.5">
+        <Link href="/" className="flex items-center gap-2.5">
+          <Logo />
+          <span className="font-display text-[15px] font-semibold tracking-[-0.01em]">Handoff</span>
+        </Link>
+        <span className="text-[13px] text-faint">/</span>
+        <span className="text-[13px] text-muted">New unit</span>
+      </div>
+      <ol className="flex gap-5 font-mono text-[11px] text-faint max-md:hidden">
+        {STEPS.map((s, i) => (
+          <li key={s} className={i + 1 === step ? "border-b border-navy pb-0.5 text-text" : ""}>{i + 1} {s}</li>
+        ))}
+      </ol>
+      <div className="flex gap-2">
+        <Link href={back} className="flex h-8 items-center rounded-md border border-line-strong px-3.5 text-[13px] text-text-2 hover:bg-raised">Back</Link>
+        <Link href={next} className="flex h-8 items-center rounded-md bg-text px-3.5 text-[13px] font-medium text-bg">{nextLabel}</Link>
+      </div>
+    </header>
+  );
+}
