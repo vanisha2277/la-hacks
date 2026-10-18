@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import type { OpenSource } from "@/app/page";
-import { fmtDate, GAP_LABEL, slackChannel, useTool } from "@/lib/api";
+import type { OpenSource } from "@/lib/api";
+import { fmtDate, GAP_LABEL, slackChannel, untable, useTool } from "@/lib/api";
 import { Caps, Empty, GapCard } from "./ui";
 
 type Props = {
@@ -326,7 +326,7 @@ function History({ data, loading, openSource }: { data: any; loading: boolean; o
                     })}
                   </div>
                 )}
-                <p className="line-clamp-2 text-[13px] leading-5 text-body2">{rev ? e.snippet : e.snippet.replace(/^#+ .*\n/, "")}</p>
+                <p className="line-clamp-2 whitespace-pre-line text-[13px] leading-5 text-body2">{rev ? e.snippet : untable(e.snippet.replace(/^#+ .*\n/, ""))}</p>
                 <span className="text-[11px] text-faint">{[e.author, e.moc].filter(Boolean).join(" · ")}</span>
               </button>
             </li>

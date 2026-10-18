@@ -44,10 +44,15 @@ body {
 .answer ul, .answer ol { padding-left: 18px; }
 .answer ul { list-style: disc; }
 .answer ol { list-style: decimal; }
-.answer li + li { margin-top: 4px; }
+.answer li + li { margin-top: 6px; }
 .answer li::marker { color: var(--color-faint); }
 .answer code { font-family: var(--font-mono); font-size: 13px; }
-.answer h1, .answer h2, .answer h3 { font-family: var(--font-display); font-weight: 600; font-size: 16px; }
+.answer h1, .answer h2, .answer h3 {
+  font-family: var(--font-mono); font-weight: 500; font-size: 11px; line-height: 16px;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-navy-text);
+}
+.answer > * + :is(h1, h2, h3) { margin-top: 24px; }
+.answer > :is(h1, h2, h3) + * { margin-top: 8px; }
 .answer table { font-size: 13px; border-collapse: collapse; }
 .answer td, .answer th { border: 1px solid var(--color-line); padding: 4px 8px; text-align: left; }
 

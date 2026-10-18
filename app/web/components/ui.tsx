@@ -1,5 +1,5 @@
 "use client";
-import type { OpenSource } from "@/app/page";
+import type { OpenSource } from "@/lib/api";
 import { isLabel } from "@/lib/api";
 
 export const Logo = ({ className = "" }: { className?: string }) => (

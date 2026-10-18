@@ -1,156 +1,141 @@
-"use client";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useRef, useState } from "react";
-import Chat from "@/components/Chat";
-import Diagram from "@/components/Diagram";
-import SourcePopover from "@/components/SourcePopover";
-import { AskResult, Envelope, get, Sheet } from "@/lib/api";
+import Link from "next/link";
+import { Logo } from "@/components/ui";
 
-export type OpenSource = (id: string, anchor: DOMRect) => void;
+type Unit = {
+  id: string;
+  name: string;
+  note: string;
+  sheets: string[];
+  stats: string[];
+  disagree?: number;
+  gaps?: number;
+  status: string;
+  drawing: React.ReactNode;
+};
 
-export default function Page() {
+// ponytail: hardcoded; only Unit 200 has data. Fetch from the API once there is more than one unit.
+const UNITS: Unit[] = [
+  {
+    id: "200",
+    name: "Unit 200 · C3/C4 Splitter",
+    note: "Handed over by Dana Okafor, Jun 2025",
+    sheets: ["PID-100", "PID-200"],
+    stats: ["33 tags", "8 revisions", "~290 sources"],
+    disagree: 2,
+    gaps: 3,
+    status: "Synthetic demo data",
+    drawing: (
+      <>
+        <rect x="150" y="28" width="34" height="124" rx="17" />
+        <path d="M156 60h22M156 80h22M156 100h22M156 120h22" stroke="#55555c" />
+        <path d="M60 110h90M184 70h50M167 28V16h80v24M184 140h40v12M280 51h30" />
+        <rect x="224" y="40" width="56" height="22" rx="11" />
+        <circle cx="234" cy="70" r="9" fill="#0e1a33" stroke="#2f4f8f" />
+        <path d="M90 104l10 6-10 6zM110 104l-10 6 10 6z" strokeWidth="1" />
+      </>
+    ),
+  },
+  {
+    id: "100",
+    name: "Unit 100 · Inlet Compression",
+    note: "Three drawings, Slack still indexing",
+    sheets: ["PID-010", "PID-020"],
+    stats: ["51 tags", "12 revisions", "~140 sources"],
+    gaps: 5,
+    status: "Indexing Slack · 64%",
+    drawing: (
+      <>
+        <circle cx="120" cy="80" r="26" />
+        <path d="M104 66l32 28M104 94l32-28" stroke="#55555c" />
+        <path d="M40 80h54M146 80h60M276 80h30" />
+        <rect x="206" y="50" width="70" height="60" rx="8" />
+      </>
+    ),
+  },
+  {
+    id: "300",
+    name: "Unit 300 · Amine Treating",
+    note: "Drawing only, no history yet",
+    sheets: ["PID-300"],
+    stats: ["— tags", "1 revision", "0 sources"],
+    status: "Needs sources",
+    drawing: (
+      <>
+        <rect x="100" y="24" width="30" height="116" rx="15" />
+        <rect x="210" y="24" width="30" height="116" rx="15" />
+        <path d="M130 44h80M130 120h80M40 110h60M240 54h60" />
+      </>
+    ),
+  },
+];
+
+const LIVE = new Set(["200"]);
+
+export default function Home() {
   return (
-    <Suspense>
-      <App />
-    </Suspense>
+    <div className="min-h-dvh">
+      <header className="flex h-14 items-center border-b border-line px-6">
+        <div className="flex items-center gap-2.5">
+          <Logo />
+          <span className="font-display text-[15px] font-semibold tracking-[-0.01em]">Handoff</span>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-[1312px] px-6 pb-20 pt-16 sm:px-12 xl:px-24">
+        <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-navy-text">Meridian Gas Processing · Harbor Terminal</p>
+        <h1 className="mt-3 font-display text-[44px] font-semibold leading-[50px] tracking-[-0.02em] max-sm:text-[32px] max-sm:leading-10">Handoff Home</h1>
+
+        <div className="mt-11 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5">
+          {UNITS.map((u) => (
+            <UnitCard key={u.id} u={u} live={LIVE.has(u.id)} />
+          ))}
+          <div className="flex min-h-[360px] flex-col items-center justify-center gap-2.5 rounded-[10px] border border-dashed border-line-strong text-center">
+            <span className="flex size-10 items-center justify-center rounded-full border border-line-strong text-xl text-text-2">+</span>
+            <span className="text-sm font-medium text-text-2">Add a unit</span>
+            <span className="text-xs text-muted">Drop drawings, connect Slack and Drive</span>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
 
-function App() {
-  const params = useSearchParams();
-  const router = useRouter();
-  const sheets = useQuery({ queryKey: ["sheets"], queryFn: () => get<Sheet[]>("/sheets") });
-  const sheetId = params.get("sheet") ?? sheets.data?.find((s) => s.id === "PID-200")?.id ?? sheets.data?.[0]?.id ?? null;
-  const tag = params.get("tag");
-
-  const [highlight, setHighlight] = useState<string[]>([]);
-  const [draft, setDraft] = useState("");
-  const [popover, setPopover] = useState<{ id: string; anchor: DOMRect } | null>(null);
-  const [chatKey, setChatKey] = useState(0); // bump to start a new chat
-  const [chatW, setChatW] = useState<number | null>(null); // px; null = default 40%
-
-  // URL holds ?sheet=&tag= so demo links are shareable
-  const setUrl = useCallback(
-    (next: { sheet?: string | null; tag?: string | null }) => {
-      const q = new URLSearchParams(window.location.search);
-      for (const [k, v] of Object.entries(next)) {
-        if (v) q.set(k, v);
-        else q.delete(k);
-      }
-      router.replace(`?${q}`, { scroll: false });
-    },
-    [router],
-  );
-
-  const sheetOf = (t: string) => get<Envelope>(`/tools/get_component?tag=${encodeURIComponent(t)}`).then((r) => (r.empty ? null : r.data));
-
-  const selectTag = useCallback(
-    async (t: string | null) => {
-      if (!t) return setUrl({ tag: null });
-      const c = await sheetOf(t);
-      if (c) setUrl({ tag: c.tag, sheet: c.sheet });
-    },
-    [setUrl],
-  );
-
-  const onAnswer = useCallback(
-    async (r: AskResult) => {
-      setHighlight(r.highlight);
-      if (r.highlight[0]) {
-        const c = await sheetOf(r.highlight[0]);
-        if (c) setUrl({ sheet: c.sheet });
-      }
-    },
-    [setUrl],
-  );
-
-  const openSource: OpenSource = useCallback(
-    (id, anchor) => (id.startsWith("drawing:") ? setUrl({ sheet: id.slice(8) }) : setPopover({ id, anchor })),
-    [setUrl],
-  );
-
-  if (sheets.isError)
-    return (
-      <div className="flex h-full items-center justify-center p-6 text-center text-sm text-muted">
-        Can&apos;t reach the API at {process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}. Is it running?
+function UnitCard({ u, live }: { u: Unit; live: boolean }) {
+  const body = (
+    <>
+      <div className="relative h-[180px] border-b border-line bg-[radial-gradient(var(--color-line-strong)_1px,transparent_1px)] bg-[length:16px_16px]">
+        <svg viewBox="0 0 340 180" fill="none" stroke="#d8d8dc" strokeWidth="1.2" className={`absolute inset-0 size-full ${live ? "" : "opacity-50"}`} aria-hidden>
+          {u.drawing}
+        </svg>
+        <div className="absolute bottom-3 left-3.5 flex gap-1.5">
+          {u.sheets.map((s) => (
+            <span key={s} className="rounded-sm border border-line-strong bg-bg px-1.5 py-0.5 font-mono text-[11px] text-text-2">{s}</span>
+          ))}
+        </div>
       </div>
-    );
-
-  return (
-    <main style={{ "--chat-w": chatW ? `${chatW}px` : "40%" } as React.CSSProperties} className="flex h-dvh overflow-hidden max-[1100px]:h-auto max-[1100px]:min-h-dvh max-[1100px]:flex-col max-[1100px]:overflow-visible">
-      <Diagram
-        sheets={sheets.data ?? []}
-        sheetId={sheetId}
-        tag={tag}
-        highlight={highlight}
-        onSheet={(s) => setUrl({ sheet: s })}
-        onTag={selectTag}
-        onAskTag={(t, legacy) => setDraft(`What should I know about ${t}${legacy ? ` (${legacy})` : ""}? `)}
-        openSource={openSource}
-      />
-      <Divider setWidth={setChatW} />
-      <Chat
-        key={chatKey}
-        onNewChat={() => {
-          setChatKey((k) => k + 1);
-          setHighlight([]);
-          setDraft("");
-        }}
-        sheetId={sheetId}
-        tag={tag}
-        clearTag={() => setUrl({ tag: null })}
-        draft={draft}
-        setDraft={setDraft}
-        onAnswer={onAnswer}
-        openSource={openSource}
-        onTag={selectTag}
-      />
-      {popover && (
-        <SourcePopover
-          key={popover.id}
-          id={popover.id}
-          anchor={popover.anchor}
-          onClose={() => setPopover(null)}
-          onSheet={(s) => setUrl({ sheet: s })}
-          onTag={selectTag}
-          openSource={openSource}
-        />
-      )}
-    </main>
+      <div className="flex flex-1 flex-col gap-1.5 px-5 pb-5 pt-[18px]">
+        <span className="font-display text-lg font-semibold">{u.name}</span>
+        <span className="text-[13px] text-muted">{u.note}</span>
+        <div className="flex gap-3.5 whitespace-nowrap pt-3 text-[13px] text-muted">
+          {u.stats.map((s) => <span key={s}>{s}</span>)}
+        </div>
+        <div className="flex gap-2 pt-3">
+          {!!u.disagree && <span className="rounded-sm border border-[#4a3c1c] bg-[#17130a] px-[7px] py-0.5 font-mono text-[11px] text-[#c9a24a]">{u.disagree} records disagree</span>}
+          {!!u.gaps && <span className="rounded-sm border border-navy-border bg-navy-surface px-[7px] py-0.5 font-mono text-[11px] text-navy-text">{u.gaps} gaps</span>}
+        </div>
+        <div className="mt-auto flex items-center justify-between pt-5">
+          <span className="font-mono text-[11px] text-faint">{u.status}</span>
+          {live ? <span className="text-[13px] text-muted transition-colors group-hover:text-text">Open →</span> : <span className="text-[13px] text-faint">Coming soon</span>}
+        </div>
+      </div>
+    </>
   );
-}
-
-const MIN_CHAT = 320;
-const MIN_DIAGRAM = 360;
-
-// Drag (or arrow keys) to resize the chat pane; width = distance from the pointer to the right edge
-function Divider({ setWidth }: { setWidth: (w: number) => void }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const clamp = (w: number) => Math.min(Math.max(w, MIN_CHAT), window.innerWidth - MIN_DIAGRAM);
-  const chatWidth = () => ref.current?.nextElementSibling?.getBoundingClientRect().width ?? MIN_CHAT;
-
-  return (
-    <div
-      ref={ref}
-      role="separator"
-      aria-orientation="vertical"
-      aria-label="Resize chat"
-      tabIndex={0}
-      onPointerDown={(e) => {
-        e.preventDefault();
-        e.currentTarget.setPointerCapture(e.pointerId);
-      }}
-      onPointerMove={(e) => {
-        if (e.currentTarget.hasPointerCapture(e.pointerId)) setWidth(clamp(window.innerWidth - e.clientX));
-      }}
-      onDoubleClick={() => setWidth(clamp(window.innerWidth * 0.4))}
-      onKeyDown={(e) => {
-        const step = e.shiftKey ? 80 : 20;
-        if (e.key === "ArrowLeft") setWidth(clamp(chatWidth() + step));
-        else if (e.key === "ArrowRight") setWidth(clamp(chatWidth() - step));
-      }}
-      className="relative z-10 -mx-1 w-2 shrink-0 cursor-col-resize touch-none outline-none after:absolute after:inset-y-0 after:left-1/2 after:w-px after:-translate-x-1/2 after:transition-colors hover:after:bg-navy focus-visible:after:bg-navy active:after:bg-navy max-[1100px]:hidden"
-    />
+  const cls = "group flex flex-col overflow-hidden rounded-[10px] border border-line bg-panel";
+  return live ? (
+    <Link href={`/unit/${u.id}`} className={`${cls} transition-colors hover:border-navy-border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy`}>
+      {body}
+    </Link>
+  ) : (
+    <div className={cls} aria-disabled>{body}</div>
   );
 }

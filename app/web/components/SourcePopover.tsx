@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { OpenSource } from "@/app/page";
-import { fmtDate, GAP_LABEL, slackChannel, sourceKind, useSource, useTool } from "@/lib/api";
+import type { OpenSource } from "@/lib/api";
+import { fmtDate, GAP_LABEL, slackChannel, sourceKind, untable, useSource, useTool } from "@/lib/api";
 import { SlackThread } from "./Chat";
 import { Caps } from "./ui";
 
@@ -64,11 +64,16 @@ export default function SourcePopover({ id, anchor, onClose, onSheet, onTag, ope
       <div className="flex h-11 shrink-0 items-center gap-2.5 border-b border-line px-4">
         <Caps className="shrink-0 text-navy-text">{kind}</Caps>
         <span className="min-w-0 truncate font-mono text-[11px] text-muted">{id}</span>
-        {jump && (
-          <button onClick={() => { jump[1](); onClose(); }} className="ml-auto shrink-0 text-xs text-text hover:underline">
-            {jump[0]} ↗
+        <div className="ml-auto flex shrink-0 items-center gap-1.5">
+          {jump && (
+            <button onClick={() => { jump[1](); onClose(); }} className="text-xs text-text hover:underline">
+              {jump[0]} ↗
+            </button>
+          )}
+          <button onClick={onClose} aria-label="Close" className="-mr-2 flex size-7 items-center justify-center rounded-md text-muted hover:bg-raised hover:text-text">
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
           </button>
-        )}
+        </div>
       </div>
       <div className="min-h-0 overflow-y-auto">
         {src.isLoading && <p className="p-4 text-[13px] text-muted">Loading…</p>}
@@ -143,7 +148,7 @@ function Drive({ d }: { d: any }) {
         x.this ? (
           <div key={x.id} className="my-1 flex flex-col gap-1.5 border-l-2 border-navy bg-navy-surface px-4 py-3">
             <span className="text-xs text-navy-text">{heading(x.text)} · cited</span>
-            <p className="whitespace-pre-wrap text-[13px] leading-5 text-text">{x.text.replace(/^#+ .*\n/, "")}</p>
+            <p className="whitespace-pre-wrap text-[13px] leading-5 text-text">{untable(x.text.replace(/^#+ .*\n/, ""))}</p>
           </div>
         ) : (
           <span key={x.id} className="text-xs text-faint">{heading(x.text)}</span>

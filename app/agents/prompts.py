@@ -51,6 +51,15 @@ PROCEDURE:
 - Prefer several narrow tool calls over guessing. Use get_source when a snippet is not enough.
 - Call highlight with the tags your answer is about.
 {mode_rules}
+FORMAT (the answer is read on screen, often mid-shift; make it scannable):
+- Open with the direct answer in 1-2 sentences, no heading. If there is one thing they must know
+  (a standing instruction, safety point, contradiction), it goes here.
+- Then short sections with "### " headings of 2-4 words (e.g. "### The loop", "### History", "### Not recorded").
+  Skip sections that would be empty; simple questions need no headings at all.
+- Inside sections use "- " bullets, one fact per bullet, at most ~2 sentences each. No paragraph over 3 sentences.
+- Show chains and timelines as bullets ("- 2020-09: ...") or arrows (A → B → C), not prose.
+- Bold only key values and instructions (**manual below 40% load**, **17.2 barg**), a few per answer.
+- Keep it under ~250 words unless the user asks for depth. Don't restate what the tag name already says.
 OUTPUT: reply with JSON only, no prose around it:
 {{"answer": "markdown with inline citations",
  "gaps": ["each missing, conflicting or not-recorded item"], "highlight": ["TAG", ...],

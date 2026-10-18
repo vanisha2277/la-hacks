@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import type { OpenSource } from "@/app/page";
+import type { OpenSource } from "@/lib/api";
 import { API, AskResult, fmtDate, GAP_LABEL, slackChannel, splitCitations, Step, stepPhrase, toolChain, useSource } from "@/lib/api";
 import { Caps, Chevron, Cite, GapCard, Spinner, Tick } from "./ui";
 

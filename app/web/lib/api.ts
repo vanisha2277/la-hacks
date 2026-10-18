@@ -121,3 +121,17 @@ export const fmtDate = (d: string) => {
   const t = new Date(d.replace(" UTC", "Z").replace(" ", "T"));
   return isNaN(+t) ? d : t.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
 };
+
+export type OpenSource = (id: string, anchor: DOMRect) => void;
+
+/** Markdown table -> one readable line per row: "High pressure — Causes: … · Safeguards: …". */
+export function untable(text: string) {
+  return text.replace(/(?:^\|.*(?:\n|$))+/gm, (block) => {
+    const rows = block.trim().split("\n").map((r) => r.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim()));
+    const [head, ...body] = rows;
+    return body
+      .filter((r) => !r.every((c) => /^:?-*:?$/.test(c)))
+      .map(([first, ...rest]) => [first, rest.map((c, i) => c && `${head[i + 1] ?? ""}: ${c}`).filter(Boolean).join(" · ")].filter(Boolean).join(" — "))
+      .join("\n") + "\n";
+  });
+}

@@ -1,8 +1,9 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ReactZoomPanPinchContentRef, TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import type { OpenSource } from "@/app/page";
+import type { OpenSource } from "@/lib/api";
 import { API, get, Sheet, useTool } from "@/lib/api";
 import ComponentPanel from "./ComponentPanel";
 import { Logo } from "./ui";
@@ -65,8 +66,10 @@ export default function Diagram(props: {
     <section className="relative flex min-w-0 flex-[3] flex-col bg-bg max-[1100px]:h-[62dvh] max-[1100px]:flex-none">
       <header className="flex h-14 shrink-0 items-center justify-between border-b border-line pl-6 pr-5">
         <div className="flex items-center gap-2.5">
-          <Logo />
-          <span className="font-display text-[15px] font-semibold tracking-[-0.01em]">Handoff</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <Logo />
+            <span className="font-display text-[15px] font-semibold tracking-[-0.01em]">Handoff</span>
+          </Link>
           <span className="text-[13px] text-faint max-sm:hidden">/</span>
           <span className="truncate text-[13px] text-muted max-sm:hidden">Unit 200 — C3/C4 Splitter</span>
         </div>
