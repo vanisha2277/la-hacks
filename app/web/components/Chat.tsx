@@ -98,7 +98,7 @@ export default function Chat({ sheetId, tag, clearTag, draft, setDraft, onAnswer
   const title = (msgs.find((m) => m.role === "user") as { text: string } | undefined)?.text;
 
   return (
-    <section className="flex min-w-0 flex-[2] flex-col border-l border-line bg-panel max-[1100px]:h-[90dvh] max-[1100px]:flex-none max-[1100px]:border-l-0 max-[1100px]:border-t">
+    <section className="flex w-[var(--chat-w,40%)] min-w-0 flex-none flex-col border-l border-line bg-panel max-[1100px]:h-[90dvh] max-[1100px]:w-auto max-[1100px]:flex-none max-[1100px]:border-l-0 max-[1100px]:border-t">
       <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-line px-6">
         <div className="flex min-w-0 items-center gap-2.5">
           <span className="shrink-0 font-display text-[15px] font-semibold tracking-[-0.01em]">Ask the plant</span>
